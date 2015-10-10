@@ -1,43 +1,53 @@
 <?php
-	use \database\DB;
 	namespace controller;
 	
-	class BaseController extends \database\DB{
-		
-		public $protocol;
+	use \database\DB;
 
-		// Load dos seeds
-		public function seeds($Model = false){
-			$Seeds = '../v1/seeds/'.$Model.'.php';
+	class BaseController extends \database\DB{
+
+		/**
+		* Carregamento de códigos reutilizáveis(Seeds)
+		* @acess private
+		* @param string $Seed nome do arquivo
+		*/
+		private function seeds($Seed = false){
+			$directory = \config\config::connections();
+			$directory = $directory['directory'];
+			$Seeds = '/'.$directory.'/seeds/'.$Seed.'.php';
 			
 			if(file_exists($Seeds)){
 				require_once($Seeds);
-				$Model = explode('/', $Model);
-				$Model = end($Model);
-				$Model = preg_replace( '/[^a-zA-Z0-9]/is', '', $Model);
-				if(class_exists($Model)){
-					return new $Model();
+				if(class_exists($Seed)){
+					return new $Seed();
 				}
 				return;
 			}
 		}
 		
-		// Retorna array em json
-		public function response($array){
+		/**
+		* Converte uma array em JSON
+		* @acess private
+		* @param array $array conteúdo para retorna 
+		* @return string Mensagem em JSON
+		*/
+		private function response($array){
 			$json = json_encode($array);
 			echo $json;
 		}
 		
-		// Load do Model
-		public function LoadModel($Model = false){
+		/**
+		* Carregamento do model
+		* @acess private
+		* @param string $Model nome do arquivo
+		*/
+		private function LoadModel($Model = false){
 			if (!$Model) return;
-			$ModelPath = '../v1/models/'.$Model.'.php';
+			$directory = \config\config::connections();
+			$directory = $directory['directory'];
+			$ModelPath = '/'.$directory.'/models/'.$Model.'.php';
 			
 			if (file_exists($ModelPath)){
 				require_once($ModelPath);
-				$Model = explode('/', $Model);
-				$Model = end($Model);
-				$Model = preg_replace( '/[^a-zA-Z0-9]/is', '', $Model);
 				if(class_exists($Model)){
 					return new $Model($this->DB());
 				}

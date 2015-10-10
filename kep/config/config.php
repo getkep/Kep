@@ -5,6 +5,7 @@
 		
 		public static function connections(){
 			return  [
+				'directory' => 'v1',
     			'connections' => [
         			'mysql' => [
             			'driver'    => 'mysqli',

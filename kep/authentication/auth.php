@@ -1,7 +1,7 @@
 <?php
-
-	use \database\DB;
 	namespace authentication;
+	
+	use \database\DB;
 
 	class auth extends \database\DB{
 

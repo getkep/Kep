@@ -9,7 +9,7 @@
   	*/
 	
 	// ============================================================================ //
- 	// Documentação
+ 	// Class
 	// ============================================================================ //
 	
 	class Kep{
@@ -44,20 +44,23 @@
 		* @return action retorna a função chamada pela route 
 		*/
 		public function	createController(){
-
+			
+			$directory = config\config::connections();
+			$directory = $directory['directory'];
+			
 			if(!$this->controller){
 				$this->responseJson("Controlador não existe.".$this->controller, 404);
 				
 				return;
 			}
 			
-			if(!file_exists('../v1/controllers/'.$this->controller.'.php')){
+			if(!file_exists('../'.$directory.'/controllers/'.$this->controller.'.php')){
 				$this->responseJson("Não encontramos o controlador", 404);
 
 				return;
 			}
 			
-			require_once '../v1/controllers/'.$this->controller.'.php';
+			require_once '../'.$directory.'/controllers/'.$this->controller.'.php';
 			
 			if(!class_exists($this->controller)){
 				$this->responseJson("Não encontramos a classe do controlador", 404);
