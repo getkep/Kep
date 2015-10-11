@@ -4,6 +4,11 @@
 	
 	class DB extends \config\config{
 		
+		/**
+		* Conexão com o banco de dados - Driver MySQLi
+		* @acess public
+		* @return array
+		*/
 		public static function db(){
 			$json = parent::connections();
 
@@ -12,6 +17,11 @@
 			return $conn;
 		}
 		
+		/**
+		* Query Builder - seleção de dados no banco de dados
+		* @acess public
+		* @return array
+		*/
 		public static function select($Query, $parameters, $Order = null){
 			if(strpos($Query, "?")){
 				$array  = explode('?', $Query);
@@ -54,6 +64,11 @@
 			return $array;
 		}
 		
+		/**
+		* Query Builder - atualização de dados no banco de dados
+		* @acess public
+		* @return array
+		*/
 		public static function update($Query, $parameters){
 			if(strpos($Query, "?")){
 				$array  = explode('?', $Query);
@@ -79,6 +94,11 @@
 			return ['affected' => $result];
 		}
 		
+		/**
+		* Query Builder - inserir dados no banco de dados
+		* @acess public
+		* @return array
+		*/
 		public static function insert($Query, $parameters){
 			if(strpos($Query, "?")){
 				$array  = explode('?', $Query);
@@ -112,6 +132,11 @@
 			];
 		}
 		
+		/**
+		* Query Builder - apagar dados no banco de dados
+		* @acess public
+		* @return array
+		*/
 		public static function delete($Query, $parameters){
 			if(strpos($Query, "?")){
 				$array  = explode('?', $Query);
@@ -137,6 +162,11 @@
 			return ['affected' => $result];
 		}
 		
+		/**
+		* Verifica se a autenticação está ativada
+		* @acess public
+		* @return array
+		*/
 		public static function isAuth(){
 			$config = parent::connections();
 			
@@ -144,7 +174,12 @@
 
 			return $Active;
 		}
-
+		
+		/**
+		* Obter a token salva no banco de dados
+		* @acess public
+		* @return array
+		*/
 		public static function authentication(){
 			$config = parent::connections();
 			
