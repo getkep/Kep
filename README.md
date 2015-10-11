@@ -8,6 +8,16 @@ Kep Framework foi iniciado por um desenvolvedor, com a mesma curiosidade de apre
 
 Documentação para o framework pode ser encontrado no [website Kep](http://kepphp.github.io/#/docs).
 
+## Versioning
+
+O Kep é mantido sob [as orientações Semantic Versioning](http://semver.org/). Às vezes nós não seguimos, mas vamos aderir a essas regras sempre que possível.
+
+## Criador
+**Matuzalém Teles**
+
+* <https://twitter.com/MatuzalemTeles>
+* <https://github.com/matuzalemsteles>
+
 ## Contribuintes
 
 Obrigado a todos os contribuintes do Kep Framework! O guia de contribuição pode ser encontrado no [sobre](http://kepphp.github.io/#/about).
