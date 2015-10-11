@@ -1,24 +1,21 @@
 <?php
 	namespace route;
 	
-	class Route{
+	class Route extends Group{
 		
-		private static $uri;
-
-		// ============================================================================ //
-		// 1. Get Construct
-		// Recebendo variaveis para comunicação.
-		// ============================================================================ //
-		
+		/**
+		* Recebendo variaveis para comunicação.
+		* @acess public
+		* @return array
+		*/
 		public static function request(){
 			return isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : null;
 		}
 		
-		// ============================================================================ //
-		// 2. Http
-		// Chamada de funções http, post e get
-		// ============================================================================ //
-		
+		/**
+		* Interpreta a comunicação POST e chama o controller se houver 
+		* @acess public
+		*/
 		public static function post($endpoint, $function){
 			if(self::request() == self::$uri.$endpoint){
 				if(is_array($function)){
@@ -37,6 +34,10 @@
 			}
 		}
 		
+		/**
+		* Interpreta a comunicação GET e chama o controller se houver 
+		* @acess public
+		*/
 		public static function get($endpoint, $function){
 			if(strpos($endpoint, ":")){
 				if(strpos($endpoint, "/")){
@@ -82,6 +83,10 @@
 			}
 		}
 		
+		/**
+		* Interpreta a comunicação PUT e chama o controller se houver 
+		* @acess public
+		*/
 		public static function put($endpoint, $function){
 			if(self::request() == self::$uri.$endpoint){
 				if(is_array($function)){
@@ -100,6 +105,10 @@
 			}
 		}
 		
+		/**
+		* Interpreta a comunicação DELETE e chama o controller se houver 
+		* @acess public
+		*/
 		public static function delete($endpoint, $function){
 			if(self::request() == self::$uri.$endpoint){
 				if(is_array($function)){
@@ -116,23 +125,6 @@
 					$function();
 				}
 			}
-		}
-		
-		// ============================================================================ //
-		// 3. RouteGroup
-		// Adicionar as rotas em grupos, para não chamar as mesmas uri
-		// ============================================================================ //
-		public static function prefix($prefix){
-			if(empty($prefix)){
-				self::$uri = "/".self::request();
-			}else{
-				self::$uri = "/".$prefix."/";
-			}
-		}
-		
-		public static function group($prefix, $function){
-			self::prefix($prefix);
-			$function();
 		}
 		
 	}
