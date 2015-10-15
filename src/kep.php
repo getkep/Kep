@@ -55,13 +55,13 @@
 				return;
 			}
 			
-			if(!file_exists('../../../../'.$directory.'/controllers/'.$this->controller.'.php')){
+			if(!file_exists(__DIR__.$directory.'/controllers/'.$this->controller.'.php')){
 				$this->responseJson("Não encontramos o controlador", 404);
 
 				return;
 			}
 			
-			require_once '../../../../'.$directory.'/controllers/'.$this->controller.'.php';
+			require_once __DIR__.$directory.'/controllers/'.$this->controller.'.php';
 			
 			if(!class_exists($this->controller)){
 				$this->responseJson("Não encontramos a classe do controlador", 404);
