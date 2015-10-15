@@ -13,7 +13,7 @@
 		public function seeds($Seed = false){
 			$directory = \config\config::connections();
 			$directory = $directory['directory'];
-			$Seeds = '../'.$directory.'/seeds/'.$Seed.'.php';
+			$Seeds = '../../../../'.$directory.'/seeds/'.$Seed.'.php';
 			
 			if(file_exists($Seeds)){
 				require_once($Seeds);
@@ -44,7 +44,7 @@
 			if (!$Model) return;
 			$directory = \config\config::connections();
 			$directory = $directory['directory'];
-			$ModelPath = '../'.$directory.'/models/'.$Model.'.php';
+			$ModelPath = '../../../../'.$directory.'/models/'.$Model.'.php';
 			
 			if (file_exists($ModelPath)){
 				require_once($ModelPath);
