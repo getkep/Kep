@@ -9,6 +9,13 @@ Pretendemos levar o Kep Framework para todos e mostrar de forma clara para inici
 
 Kep Framework foi iniciado por um desenvolvedor, com a mesma curiosidade de aprender como é um funcionamento de uma framework, utilizando como view o AngularJS, entre outros.
 
+## Instalação
+
+Instalação pelo composer, certifique-se de ter Composer instalado em sua máquina.
+```
+	composer require kepphp/kep
+```
+
 ## Documentação Oficial
 
 Documentação para o framework pode ser encontrado no [website Kep](http://kepphp.github.io/#/docs).
