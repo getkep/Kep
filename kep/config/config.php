@@ -1,5 +1,5 @@
 <?php
-	namespace config;
+	namespace KepPHP\Kep\config;
 	
 	class config{
 		

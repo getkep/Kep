@@ -1,9 +1,9 @@
 <?php
-	namespace authentication;
+	namespace KepPHP\Kep\authentication;
 	
-	use \database\DB;
+	use KepPHP\Kep\database\DB;
 
-	class auth extends \database\DB{
+	class auth extends KepPHP\Kep\database\DB{
 
 		public function checkToken($user, $token){
 			if (!isset($_SESSION)) {

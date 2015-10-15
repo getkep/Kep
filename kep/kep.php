@@ -1,4 +1,5 @@
 <?php
+	namespace KepPHP\Kep;
 	
 	/**
   	* @name Kep Micro Framework

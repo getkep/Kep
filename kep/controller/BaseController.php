@@ -1,9 +1,9 @@
 <?php
-	namespace controller;
+	namespace KepPHP\Kep\controller;
 	
-	use \database\DB;
+	use KepPHP\Kep\database\DB;
 
-	class BaseController extends \database\DB{
+	class BaseController extends KepPHP\Kep\database\DB{
 
 		/**
 		* Carregamento de códigos reutilizáveis(Seeds)

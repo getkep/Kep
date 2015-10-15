@@ -1,8 +1,8 @@
 <?php
 	
-	namespace database;
+	namespace KepPHP\Kep\database;
 	
-	class DB extends \config\config{
+	class DB extends KepPHP\Kep\config\config{
 		
 		/**
 		* Conexão com o banco de dados - Driver MySQLi

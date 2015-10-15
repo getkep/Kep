@@ -1,6 +1,6 @@
 <?php
 	
-	namespace model;
+	namespace KepPHP\Kep\model;
 	
 	class BaseModel{
 		

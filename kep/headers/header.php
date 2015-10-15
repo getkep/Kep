@@ -1,5 +1,5 @@
 <?php
-	namespace headers;
+	namespace KepPHP\Kep\headers;
 	
 	class header {
 		
