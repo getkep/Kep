@@ -4,7 +4,6 @@
 	/**
   	* @name Kep Micro Framework
   	* @author Matuzalém Teles <matuzalemteles@gmail.com>
-	* @version 0.1 
 	* @link http://kepphp.github.io website oficial do Kep Framework for PHP
 	* @copyright 2015 Kep Framework
   	*/
@@ -46,7 +45,7 @@
 		*/
 		public function	createController(){
 			
-			$directory = KepPHP\Kep\config\config::connections();
+			$directory = \KepPHP\Kep\config\config::connections();
 			$directory = $directory['directory'];
 			
 			if(!$this->controller){
@@ -55,13 +54,15 @@
 				return;
 			}
 			
-			if(!file_exists(__DIR__.$directory.'/controllers/'.$this->controller.'.php')){
-				$this->responseJson("Não encontramos o controlador", 404);
+			$patch = "../".$directory.'/controllers/'.$this->controller.'.php';
+			
+			if(!file_exists($patch)){
+				$this->responseJson("Não encontramos o controlador: ".$patch, 404);
 
 				return;
 			}
 			
-			require_once __DIR__.$directory.'/controllers/'.$this->controller.'.php';
+			require_once $patch;
 			
 			if(!class_exists($this->controller)){
 				$this->responseJson("Não encontramos a classe do controlador", 404);

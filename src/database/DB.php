@@ -2,7 +2,9 @@
 	
 	namespace KepPHP\Kep\database;
 	
-	class DB extends KepPHP\Kep\config\config{
+	use KepPHP\Kep\config\config;
+	
+	class DB extends config{
 		
 		/**
 		* Conexão com o banco de dados - Driver MySQLi

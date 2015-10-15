@@ -1,6 +1,9 @@
 <?php
 	namespace KepPHP\Kep\route;
 	
+	use KepPHP\Kep\route\Group;
+	use KepPHP\Kep\kep;
+	
 	class Route extends Group{
 		
 		/**
@@ -25,7 +28,7 @@
 						$Post = file_get_contents("php://input");
 						$params = json_decode($Post);
 
-						$kep = new \kep();
+						$kep = new kep();
 						$kep->getController($uses[0], $uses[1], $params);
 					}
 				}else{
@@ -74,7 +77,7 @@
 					if(array_key_exists("uses", $function)){
 						$uses = explode("@", $function['uses']);
 						
-						$kep = new \kep();
+						$kep = new kep();
 						$kep->getController($uses[0], $uses[1], $params);
 					}
 				}else{
@@ -96,7 +99,7 @@
 						$Post = file_get_contents("php://input");
 						$params = json_decode($Post);
 
-						$kep = new \kep();
+						$kep = new kep();
 						$kep->getController($uses[0], $uses[1], $params);
 					}
 				}else{
@@ -118,7 +121,7 @@
 						$Post = file_get_contents("php://input");
 						$params = json_decode($Post);
 
-						$kep = new \kep();
+						$kep = new kep();
 						$kep->getController($uses[0], $uses[1], $params);
 					}
 				}else{

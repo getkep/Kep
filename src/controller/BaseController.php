@@ -2,8 +2,9 @@
 	namespace KepPHP\Kep\controller;
 	
 	use KepPHP\Kep\database\DB;
+	use KepPHP\Kep\config\config;
 
-	class BaseController extends KepPHP\Kep\database\DB{
+	class BaseController extends DB{
 
 		/**
 		* Carregamento de códigos reutilizáveis(Seeds)
@@ -11,9 +12,9 @@
 		* @param string $Seed nome do arquivo
 		*/
 		public function seeds($Seed = false){
-			$directory = KepPHP\Kep\config\config::connections();
+			$directory = config::connections();
 			$directory = $directory['directory'];
-			$Seeds = __DIR__.$directory.'/seeds/'.$Seed.'.php';
+			$Seeds = "../".$directory.'/seeds/'.$Seed.'.php';
 			
 			if(file_exists($Seeds)){
 				require_once($Seeds);
@@ -42,9 +43,9 @@
 		*/
 		public function LoadModel($Model = false){
 			if (!$Model) return;
-			$directory = KepPHP\Kep\config\config::connections();
+			$directory = config::connections();
 			$directory = $directory['directory'];
-			$ModelPath = __DIR__.$directory.'/models/'.$Model.'.php';
+			$ModelPath = "../".$directory.'/models/'.$Model.'.php';
 			
 			if (file_exists($ModelPath)){
 				require_once($ModelPath);

@@ -3,7 +3,7 @@
 	
 	use KepPHP\Kep\database\DB;
 
-	class auth extends KepPHP\Kep\database\DB{
+	class auth extends DB{
 
 		public function checkToken($user, $token){
 			if (!isset($_SESSION)) {
