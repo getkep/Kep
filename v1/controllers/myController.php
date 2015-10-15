@@ -1,6 +1,6 @@
 <?php
 	
-	use controller\BaseController;
+	use KepPHP\Kep\controller\BaseController;
 	
 	class myController extends BaseController{
 	
@@ -15,19 +15,10 @@
 		}
 		
 		public function testing(){
-			$name = $this->params->name;
 			
-			$result = $this->load->testing($name);
-			
-			if($result['num_rows'] == 1){
-				$Result = "sucess";
-				$Message = "Sucess when sending";
-				$Sha = $this->seed->sha512($Message);
-			}else{
-				$Result = "error";
-				$Message = "An unexpected error occurred";
-				$Sha = $this->seed->sha512($Message);
-			}
+			$Result = "sucess";
+			$Message = "Sucess when sending";
+			$Sha = $this->seed->sha512($Message);
 			
 			$array = array(
 				"result" => $Result,
@@ -36,6 +27,7 @@
 			);
 			
 			$this->response($array);
+			
 		}
 		
 	}
