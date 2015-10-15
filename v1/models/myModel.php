@@ -1,7 +1,7 @@
 <?php
 	
-	use database\DB;
-	use model\BaseModel;
+	use KepPHP\Kep\database\DB;
+	use KepPHP\Kep\model\BaseModel;
 	
 	class myModel extends BaseModel{
 		
