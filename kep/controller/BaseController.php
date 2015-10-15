@@ -11,7 +11,7 @@
 		* @param string $Seed nome do arquivo
 		*/
 		public function seeds($Seed = false){
-			$directory = \config\config::connections();
+			$directory = KepPHP\Kep\config\config::connections();
 			$directory = $directory['directory'];
 			$Seeds = '../../../../'.$directory.'/seeds/'.$Seed.'.php';
 			
@@ -42,7 +42,7 @@
 		*/
 		public function LoadModel($Model = false){
 			if (!$Model) return;
-			$directory = \config\config::connections();
+			$directory = KepPHP\Kep\config\config::connections();
 			$directory = $directory['directory'];
 			$ModelPath = '../../../../'.$directory.'/models/'.$Model.'.php';
 			

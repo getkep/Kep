@@ -46,7 +46,7 @@
 		*/
 		public function	createController(){
 			
-			$directory = config\config::connections();
+			$directory = KepPHP\Kep\config\config::connections();
 			$directory = $directory['directory'];
 			
 			if(!$this->controller){
