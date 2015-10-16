@@ -26,5 +26,7 @@
         "psr-4": {
             "KepPHP\\Kep\\": "src"
         }
-    }
+    },
+    "minimum-stability": "beta",
+    "prefer-stable": true
 }
