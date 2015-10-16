@@ -13,7 +13,7 @@ Kep Framework foi iniciado por um desenvolvedor, com a mesma curiosidade de apre
 
 Instalação pelo composer, certifique-se de ter Composer instalado em sua máquina.
 ```
-	composer require kepphp/kep
+	composer require kepphp/kep v0.2.1-beta
 ```
 
 ## Documentação Oficial
