@@ -10,8 +10,20 @@
 			});
   		}
 		
-		public function testRoute(){
+		public function testRoutePost(){
 			Route::post('testing', ['uses' => 'myController@testing']);
+		}
+		
+		public function testRouteGet(){
+			Route::get('get', ['uses' => 'myController@get']);
+		}
+		
+		public function testRoutePut(){
+			Route::put('put', ['uses' => 'myController@put']);
+		}
+		
+		public function testeRouteDelete(){
+			Route::delete('delete', ['uses' => 'myController@delete']);
 		}
 		
 	}
