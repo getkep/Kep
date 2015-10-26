@@ -30,4 +30,28 @@
 			
 		}
 		
+		public function get(){
+			$array = array(
+				"message" => "Sucess when sending"
+			);
+			
+			$this->response($array);
+		}
+		
+		public function put(){
+			$array = array(
+				"message" => "Sucess when sending"
+			);
+			
+			$this->response($array);
+		}
+		
+		public function delete(){
+			$array = array(
+				"message" => "Sucess when sending"
+			);
+			
+			$this->response($array);
+		}
+		
 	}
