@@ -5,7 +5,7 @@
 	class myController extends BaseController{
 	
 		private $load;
-		private $parameters;
+		private $params;
 		private $seed;
 		
 		function __construct($parameters){
