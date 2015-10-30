@@ -18,7 +18,7 @@ Instalação pelo composer, certifique-se de ter Composer instalado em sua máqu
 
 ## Documentação Oficial
 
-Documentação para o framework pode ser encontrado no [website Kep](http://kepphp.github.io/#/docs).
+Documentação para o framework pode ser encontrado no [website Kep](http://getkep.com/#/docs).
 
 ## Versioning
 
@@ -32,4 +32,4 @@ O Kep é mantido sob [as orientações Semantic Versioning](http://semver.org/).
 
 ## Contribuintes
 
-Obrigado a todos os contribuintes do Kep Framework! O guia de contribuição pode ser encontrado no [sobre](http://kepphp.github.io/#/about).
+Obrigado a todos os contribuintes do Kep Framework! O guia de contribuição pode ser encontrado no [sobre](http://getkep.com/#/about).
