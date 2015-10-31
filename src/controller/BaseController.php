@@ -1,10 +1,9 @@
 <?php
 	namespace KepPHP\Kep\controller;
 	
-	use KepPHP\Kep\database\DB;
 	use KepPHP\Kep\config\config;
 
-	class BaseController extends DB{
+	class BaseController{
 
 		/**
 		* Carregamento de códigos reutilizáveis(Seeds)
@@ -50,7 +49,7 @@
 			if (file_exists($ModelPath)){
 				require_once($ModelPath);
 				if(class_exists($Model)){
-					return new $Model($this->DB());
+					return new $Model();
 				}
 				return;
 			}
