@@ -4,7 +4,13 @@
 	use KepPHP\Kep\database\DB;
 
 	class auth extends DB{
-
+		
+		/**
+		* Verificar integridade da sessão do usuário
+		* @acess public
+		* @param string $user nome do usuário
+		* @param string $token token de acesso
+		*/
 		public function checkToken($user, $token){
 			if (!isset($_SESSION)) {
         		session_start();
