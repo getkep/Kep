@@ -196,4 +196,13 @@
 			return $Date;
 		}
 		
+		/**
+		* Function para teste de hierarquia da class
+		* @acess public
+		* @return string
+		*/
+		public static function testing(){
+			return "Testing class";
+		}
+		
 	}
