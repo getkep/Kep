@@ -22,7 +22,7 @@
 			Route::put('put', ['uses' => 'myController@put']);
 		}
 		
-		public function testeRouteDelete(){
+		public function testRouteDelete(){
 			Route::delete('delete', ['uses' => 'myController@delete']);
 		}
 		
