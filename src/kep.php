@@ -4,7 +4,7 @@
 	/**
   	* @name Kep Micro Framework
   	* @author Matuzalém Teles <matuzalemteles@gmail.com>
-	* @link http://kepphp.github.io website oficial do Kep Framework for PHP
+	* @link http://getkep.com website oficial do Kep Framework for PHP
 	* @copyright 2015 Kep Framework
   	*/
 	
