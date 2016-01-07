@@ -4,25 +4,6 @@
 	use KepPHP\Kep\config\config;
 
 	class BaseController{
-
-		/**
-		* Carregamento de códigos reutilizáveis(Seeds)
-		* @acess public
-		* @param string $Seed nome do arquivo
-		*/
-		public function seeds($Seed = false){
-			$directory = config::connections();
-			$directory = $directory['directory'];
-			$Seeds = "../".$directory.'/seeds/'.$Seed.'.php';
-			
-			if(file_exists($Seeds)){
-				require_once($Seeds);
-				if(class_exists($Seed)){
-					return new $Seed();
-				}
-				return;
-			}
-		}
 		
 		/**
 		* Converte uma array em JSON
@@ -36,24 +17,52 @@
 		}
 		
 		/**
+		 * Seleciona o diretório
+		 * @acess private
+		 * @return string Diretório
+		*/
+		private function setDirectory(){
+			$directory = config::connections();
+			$directory = $directory['directory'];
+			return $directory;
+		}
+
+		/**
+		 * Verifica e carrega class
+		 * @acess private
+		 * @param string $Path
+		 * @param string $Class
+		*/
+		private function loadClass($Path, $Class){
+			if(file_exists($Path)){
+				require_once($Path);
+				if(class_exists($Class)){
+					return new $Class();
+				}
+				return;
+			}
+		}
+
+		/**
+		* Carregamento de códigos reutilizáveis(Seeds)
+		* @acess public
+		* @param string $Seed nome do arquivo
+		*/
+		public function seeds($Seed = false){
+			$Path = "../".$this->setDirectory().'/seeds/'.$Seed.'.php';
+
+			$this->loadClass($Path, $Seed);
+		}
+
+		/**
 		* Carregamento do model
 		* @acess public
 		* @param string $Model nome do arquivo
 		*/
-		public function LoadModel($Model = false){
-			if (!$Model) return;
-			$directory = config::connections();
-			$directory = $directory['directory'];
-			$ModelPath = "../".$directory.'/models/'.$Model.'.php';
+		public function model($Model = false){
+			$Path = "../".$this->setDirectory().'/models/'.$Model.'.php';
 			
-			if (file_exists($ModelPath)){
-				require_once($ModelPath);
-				if(class_exists($Model)){
-					return new $Model();
-				}
-				return;
-			}
-		
+			$this->loadClass($Path, $Model);
 		}
 		
 	}

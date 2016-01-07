@@ -25,5 +25,5 @@
 		public function testRouteDelete(){
 			Route::delete('delete', ['uses' => 'myController@delete']);
 		}
-		
+        
 	}
