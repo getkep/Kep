@@ -7,7 +7,7 @@
 	class Route extends Group{
 		
 		/**
-		* Recebendo variaveis para comunicação.
+		* Getting variables for communication.
 		* @acess public
 		* @return array
 		*/
@@ -16,7 +16,7 @@
 		}
 		
 		/**
-		* Interpreta a comunicação POST e chama o controller se houver 
+		* POST interprets the communication and calls the controller if there
 		* @acess public
 		*/
 		public static function post($endpoint, $function){
@@ -38,7 +38,7 @@
 		}
 		
 		/**
-		* Interpreta a comunicação GET e chama o controller se houver 
+		* Interprets the GET communication and calls the controller if there
 		* @acess public
 		*/
 		public static function get($endpoint, $function){
@@ -87,7 +87,7 @@
 		}
 		
 		/**
-		* Interpreta a comunicação PUT e chama o controller se houver 
+		* Interprets the PUT communication and calls the controller if there
 		* @acess public
 		*/
 		public static function put($endpoint, $function){
@@ -109,7 +109,7 @@
 		}
 		
 		/**
-		* Interpreta a comunicação DELETE e chama o controller se houver 
+		* DELETE interprets the communication and calls the controller if there
 		* @acess public
 		*/
 		public static function delete($endpoint, $function){

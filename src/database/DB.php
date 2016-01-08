@@ -7,7 +7,7 @@
 	class DB extends config{
 		
 		/**
-		* Conexão com o banco de dados - Driver MySQLi
+		* Connection to the database - Driver MySQLi
 		* @acess public
 		* @return array
 		*/
@@ -20,7 +20,7 @@
 		}
 		
 		/**
-		* Query Builder - seleção de dados no banco de dados
+		* Query Builder - data selection in the database
 		* @acess public
 		* @return array
 		*/
@@ -67,7 +67,7 @@
 		}
 		
 		/**
-		* Query Builder - atualização de dados no banco de dados
+		* Query Builder - data update in the database
 		* @acess public
 		* @return array
 		*/
@@ -97,7 +97,7 @@
 		}
 		
 		/**
-		* Query Builder - inserir dados no banco de dados
+		* Query Builder - insert data in the database
 		* @acess public
 		* @return array
 		*/
@@ -135,7 +135,7 @@
 		}
 		
 		/**
-		* Query Builder - apagar dados no banco de dados
+		* Query Builder - delete data in the database
 		* @acess public
 		* @return array
 		*/
@@ -165,7 +165,7 @@
 		}
 		
 		/**
-		* Verifica se a autenticação está ativada
+		* Checks if authentication is enabled
 		* @acess public
 		* @return array
 		*/
@@ -178,7 +178,7 @@
 		}
 		
 		/**
-		* Obter a token salva no banco de dados
+		* Get the token saved in the database
 		* @acess public
 		* @return array
 		*/
@@ -197,7 +197,7 @@
 		}
 		
 		/**
-		* Function para teste de hierarquia da class
+		* Function for class hierarchy of test
 		* @acess public
 		* @return string
 		*/

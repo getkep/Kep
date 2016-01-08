@@ -11,7 +11,7 @@
 		public static $uri;
 		
 		/**
-		* Responsavel em gravar o nome do grupo
+		* Responsible to record the group name
 		* @param string $prefix
 		* @acess public
 		*/
@@ -24,7 +24,7 @@
 		}
 		
 		/**
-		* criar o grupo
+		* Create group
 		* @param string $prefix
 		* @param  $function
 		* @acess public

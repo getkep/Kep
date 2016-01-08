@@ -4,6 +4,6 @@
 	
 	class BaseModel{
 		
-		// Funções a serem trabalhadas
+		// Functions to be worked
 		
 	}

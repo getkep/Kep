@@ -4,9 +4,9 @@
 	class config{
 		
 		/**
-		* Carregar informações da configuração
+		* Load configuration information
 		* @acess public
-		* @return array Informações de configuração
+		* @return array Configuration information
 		*/
 		public static function getConfig(){
 			self::loadConfig('../config.php');
@@ -15,9 +15,9 @@
 		}
 
 		/**
-		* Carrega o arquivo retornado
+		* Loads the returned file
 		* @acess private
-		* @return array Informações de configuração
+		* @return array Configuration information
 		*/
 		private static function loadConfig($Path){
 			if(file_exists($Path)){

@@ -6,10 +6,10 @@
 	class auth extends DB{
 		
 		/**
-		* Verificar integridade da sessão do usuário
+		* Check user session integrity
 		* @acess public
-		* @param string $user nome do usuário
-		* @param string $token token de acesso
+		* @param string $user Username
+		* @param string $token Access token
 		*/
 		public function checkToken($user, $token){
 			if (!isset($_SESSION)) {
@@ -18,25 +18,25 @@
 			
 			if(parent::isAuth() == true){
 				if(isset($_SESSION['uid'])){
-					// Camada 1 - Verificação da token enviada e comparar com a da session
+					// Layer 1 - sent token check and compare the session
 					if($_SESSION["token"] == $token){
-						// Camada 2 - Verificar no banco de dados
+						// Layer 2 - Check the database
 						$result = parent::authentication();
 					
 						if($result == $_SESSION["token"]){
-						// Sucesso na autenticação
+						// Successful authentication
 							return $auth['result'] = "true";
 						}else{
 							return $auth['result'] = "false";
-							// Retorna erro
+							// Returns error
 						}
 					}else{
 						return $auth['result'] = "false";
-						// Retorna erro
+						// returns error
 					}
 				}else{
 					return $auth['result'] = "false";
-					// Retorna erro, por que não tem nenhuma sessão
+					// Returns error, because there is no session
 				}
 			}else{
 				return $auth['result'] = "disabled";
