@@ -3,26 +3,28 @@
 	
 	class config{
 		
-		public static function connections(){
-			return  [
-				'directory' => 'v1',
-    			'connections' => [
-        			'mysql' => [
-            			'driver'    => 'mysqli',
-            			'host'      => 'localhost',
-            			'database'  => 'database',
-            			'username'  => 'root',
-            			'password'  => '',
-        			],
-    			],
-				'authentication' => [
-					'mysqli' => [
-						'activate' => false,
-						'table' => 'table',
-						'column' => 'column',
-					],
-				],
-			];
+		/**
+		* Carregar informações da configuração
+		* @acess public
+		* @return array Informações de configuração
+		*/
+		public static function getConfig(){
+			self::loadConfig('../config.php');
+
+			return;
+		}
+
+		/**
+		* Carrega o arquivo retornado
+		* @acess private
+		* @return array Informações de configuração
+		*/
+		private static function loadConfig($Path){
+			if(file_exists($Path)){
+				require_once($Path);
+
+				return;
+			}
 		}
 		
 	}
