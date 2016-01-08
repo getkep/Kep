@@ -1,7 +1,7 @@
 <?php
 	
 	/**
-	 * Estrutura do arquivo de configuração.
+	 * Configuration file structure.
 	*/ 
 
 	return  [
