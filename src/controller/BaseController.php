@@ -6,10 +6,10 @@
 	class BaseController{
 		
 		/**
-		* Converte uma array em JSON
+		* Convert an array in JSON
 		* @acess public
-		* @param array $array conteúdo para retorna 
-		* @return string Mensagem em JSON
+		* @param array $array Content to return
+		* @return string Message JSON
 		*/
 		public function response($array){
 			$json = json_encode($array);
@@ -17,9 +17,9 @@
 		}
 		
 		/**
-		 * Seleciona o diretório
+		 * Select the directory
 		 * @acess private
-		 * @return string Diretório
+		 * @return string Directory
 		*/
 		private function setDirectory(){
 			$directory = config::getConfig();
@@ -28,7 +28,7 @@
 		}
 
 		/**
-		 * Verifica e carrega class
+		 * Checks and loads class
 		 * @acess private
 		 * @param string $Path
 		 * @param string $Class
@@ -44,9 +44,9 @@
 		}
 
 		/**
-		* Carregamento de códigos reutilizáveis(Seeds)
+		* Loading reusable code (Seeds)
 		* @acess public
-		* @param string $Seed nome do arquivo
+		* @param string $Seed File name
 		*/
 		public function seeds($Seed = false){
 			$Path = "../".$this->setDirectory().'/seeds/'.$Seed.'.php';
@@ -55,9 +55,9 @@
 		}
 
 		/**
-		* Carregamento do model
+		* Model loading
 		* @acess public
-		* @param string $Model nome do arquivo
+		* @param string $Model File name
 		*/
 		public function model($Model = false){
 			$Path = "../".$this->setDirectory().'/models/'.$Model.'.php';

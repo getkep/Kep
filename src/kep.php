@@ -4,7 +4,7 @@
 	/**
   	* @name Kep Micro-Framework
   	* @author Matuzalém S. Teles <matuzalemteles@gmail.com>
-	* @link http://getkep.com website oficial do Kep Framework for PHP
+	* @link http://getkep.com official website of Kep Framework for PHP
 	* @copyright 2016 Kep Framework
   	*/
 	
@@ -16,32 +16,32 @@
 		
 		/**
 		* @acess private
-		* @var string $controller			Recebe o nome do controller
+		* @var string $controller			Receives the controller name
 		*/
 		private $controller;
 		
 		/**
 		* @acess private
-		* @var string $action				Recebe a function para iniciar
+		* @var string $action				Receives the function to start
 		*/
 		private $action;
 		
 		/**
 		* @acess private
-		* @var array or json $parameters 	Parametros para serem passados
+		* @var array or json $parameters 	Parameters to be passed
 		*/
 		private $parameters;
 
 		/**
 		* @acess private
-		* @var string $auth 				Retorna false ou true
+		* @var string $auth 				Returns false or true
 		*/
 		private $auth;
 		
 		/**
-		* Monta o controller para efetuar as ações a pedido da route
+		* Mount the controller to perform the actions requested by the route
 		* @acess public
-		* @return action retorna a função chamada pela route 
+		* @return action returns the function called by route
 		*/
 		public function	createController(){
 			
@@ -56,13 +56,13 @@
 		}
 
 		/**
-		* Checar se o parâmetro controller existe ou está vazio
+		* Check if the controller parameter exist or is empty
 		* @acess private
-		* @param string $Path caminho do controlador
+		* @param string $Path controller path
 		*/
 		private function checkController($Path){
 			if(!$this->controller){
-				$this->responseJson("Controlador não existe.".$this->controller, 404);
+				$this->responseJson("Controller does not exist.".$this->controller, 404);
 				
 				return;
 			}
@@ -71,13 +71,13 @@
 		}
 		
 		/**
-		* Checar se o caminho do controller existe
+		* Check if the controller of the way there
 		* @acess private
-		* @param string $Path caminho do controlador
+		* @param string $Path controller path
 		*/
 		private function checkPatchController($Path){
 			if(!file_exists($Path)){
-				$this->responseJson("Não encontramos o controlador: ".$Path, 404);
+				$this->responseJson("We did not find the driver: ".$Path, 404);
 
 				return;
 			}
@@ -86,15 +86,15 @@
 		}
 
 		/**
-		* Checar se a classe do controlador existe
+		* Check if the driver class exists
 		* @acess private
-		* @param string $Path caminho do controlador
+		* @param string $Path controller path
 		*/
 		private function checkClassController($Path){
 			require_once $Path;
 
 			if(!class_exists($this->controller)){
-				$this->responseJson("Não encontramos a classe do controlador", 404);
+				$this->responseJson("We did not find the driver class", 404);
 				
 				return;
 			}
@@ -105,7 +105,7 @@
 		}
 		
 		/**
-		* Checar se o método existe
+		* Check if the method exists
 		* @acess private
 		*/
 		private function checkMethodController(){
@@ -119,7 +119,7 @@
 		}
 
 		/**
-		* Checar se a função da classe chamada existe no controlador
+		* Make sure that the class called function exist in the controller
 		* @acess private
 		*/
 		private function checkActionController(){
@@ -129,15 +129,15 @@
 				return;
 			}
 
-			$this->responseJson("Não encontramos o controller", 404);
+			$this->responseJson("We did not find the controller", 404);
 		}
 
 		/**
-		* função para retorna uma mensagem em json
+		* function to return a message in json
 		* @acess private
-		* @param string $Message mensagem de erro
-		* @param int $Code codigo do erro
-		* @return string Mensagem do erro em JSON
+		* @param string $Message error message
+		* @param int $Code Error code
+		* @return string Error message in JSON
 		*/
 		private function responseJson($Message, $Code){
 			$array = array(
@@ -150,11 +150,11 @@
 		}
 		
 		/**
-		* verifica se existe a autenticação do usuário
+		* checks for user authentication
 		* @acess public
-		* @param string $Name Nome do usuário
-		* @param string $Token Token para autenticação
-		* @return int retorna true ou false
+		* @param string $Name Username
+		* @param string $Token Token Authentication
+		* @return int returns true or false
 		*/
 		public function isAuth($Name, $Token){
 			$auth = new authentication\auth();
@@ -171,7 +171,7 @@
 		}
 		
 		/**
-		* Função run, chama a função createController()
+		* Run function calls the function createController()
 		* @acess public
 		* @param string $controller
 		* @param string $action
@@ -186,7 +186,7 @@
 				if($this->isAuth($params->user, $params->token) == true){
 					$this->createController();
 				}else{
-					$this->responseJson("Falha na autenticação", 404);
+					$this->responseJson("Authentication failed", 404);
 				}
 			}else{
 				$this->createController();
