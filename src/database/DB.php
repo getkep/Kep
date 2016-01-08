@@ -12,7 +12,7 @@
 		* @return array
 		*/
 		public static function db(){
-			$json = parent::connections();
+			$json = parent::getConfig();
 
 			$conn = new \mysqli($json['connections']['mysql']['host'], $json['connections']['mysql']['username'], $json['connections']['mysql']['password'], $json['connections']['mysql']['database']);
 			if (mysqli_connect_errno()) trigger_error(mysqli_connect_error());
@@ -170,7 +170,7 @@
 		* @return array
 		*/
 		public static function isAuth(){
-			$config = parent::connections();
+			$config = parent::getConfig();
 			
 			$Active = $config['authentication']['mysqli']['activate'];
 
@@ -183,7 +183,7 @@
 		* @return array
 		*/
 		public static function authentication(){
-			$config = parent::connections();
+			$config = parent::getConfig();
 			
 			$Column = $config['authentication']['mysqli']['column'];
 			$Database = $config['connections']['mysql']['database'];

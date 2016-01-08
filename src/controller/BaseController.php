@@ -22,7 +22,7 @@
 		 * @return string Diretório
 		*/
 		private function setDirectory(){
-			$directory = config::connections();
+			$directory = config::getConfig();
 			$directory = $directory['directory'];
 			return $directory;
 		}
