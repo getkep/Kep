@@ -2,10 +2,10 @@
 	namespace KepPHP\Kep;
 	
 	/**
-  	* @name Kep Micro Framework
-  	* @author Matuzalém Teles <matuzalemteles@gmail.com>
+  	* @name Kep Micro-Framework
+  	* @author Matuzalém S. Teles <matuzalemteles@gmail.com>
 	* @link http://getkep.com website oficial do Kep Framework for PHP
-	* @copyright 2015 Kep Framework
+	* @copyright 2016 Kep Framework
   	*/
 	
 	// ============================================================================ //
@@ -47,49 +47,91 @@
 			
 			$directory = \KepPHP\Kep\config\config::getConfig();
 			$directory = $directory['directory'];
+
+			$Path = "../".$directory.'/controllers/'.$this->controller.'.php';
+
+			$this->checkController($Path);
 			
+			return;
+		}
+
+		/**
+		* Checar se o parâmetro controller existe ou está vazio
+		* @acess private
+		* @param string $Path caminho do controlador
+		*/
+		private function checkController($Path){
 			if(!$this->controller){
 				$this->responseJson("Controlador não existe.".$this->controller, 404);
 				
 				return;
 			}
-			
-			$patch = "../".$directory.'/controllers/'.$this->controller.'.php';
-			
-			if(!file_exists($patch)){
-				$this->responseJson("Não encontramos o controlador: ".$patch, 404);
+
+			$this->checkPatchController($Path);
+		}
+		
+		/**
+		* Checar se o caminho do controller existe
+		* @acess private
+		* @param string $Path caminho do controlador
+		*/
+		private function checkPatchController($Path){
+			if(!file_exists($Path)){
+				$this->responseJson("Não encontramos o controlador: ".$Path, 404);
 
 				return;
 			}
-			
-			require_once $patch;
-			
+
+			$this->checkClassController($Path);
+		}
+
+		/**
+		* Checar se a classe do controlador existe
+		* @acess private
+		* @param string $Path caminho do controlador
+		*/
+		private function checkClassController($Path){
+			require_once $Path;
+
 			if(!class_exists($this->controller)){
 				$this->responseJson("Não encontramos a classe do controlador", 404);
 				
 				return;
 			}
-			
+
 			$this->controller = new $this->controller($this->parameters);
-			
+
+			$this->checkMethodController();
+		}
+		
+		/**
+		* Checar se o método existe
+		* @acess private
+		*/
+		private function checkMethodController(){
 			if(method_exists($this->controller, $this->action)){
 				$this->controller->{$this->action}($this->parameters);
 
 				return;
 			}
-			
+
+			$this->checkActionController();
+		}
+
+		/**
+		* Checar se a função da classe chamada existe no controlador
+		* @acess private
+		*/
+		private function checkActionController(){
 			if(!$this->action && method_exists($this->controlador, 'index' )){
 				$this->controller->index($this->parameters);
 				
 				return;
 			}
-			
+
 			$this->responseJson("Não encontramos o controller", 404);
-			
-			return;
 		}
-		
-		
+
 		/**
 		* função para retorna uma mensagem em json
 		* @acess private
