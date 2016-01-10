@@ -3,7 +3,7 @@
     "type": "project",
     "description": "Kep Framework for PHP",
     "keywords": ["kep","framework"],
-    "homepage": "http://kepphp.github.io",
+    "homepage": "http://getkep.com",
     "license": "MIT",
 	"support": {
         "issues": "https://github.com/kepphp/kep/issues",
