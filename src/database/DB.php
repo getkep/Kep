@@ -5,7 +5,22 @@ namespace KepPHP\Kep\database;
 use KepPHP\Kep\config\config;
 
     class DB extends config
-    {
+    {   
+        /**
+         * Query builder v2
+         * 
+         * @acess public
+         * @return KepPHP\Kep\database\Builder|static
+         */
+        public static function table($table, $selects = "*")
+        {
+            $Builder = new Builder;
+
+            $Builder->index($table, $selects);
+            
+            return $Builder;
+        }
+
         /**
          * Connection to the database - Driver MySQLi.
          *
