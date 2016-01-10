@@ -1,4 +1,5 @@
 ## Kep PHP Framework
+[![StyleCI](https://styleci.io/repos/41437263/shield)](https://styleci.io/repos/41437263)
 [![Build Status](https://travis-ci.org/KepPHP/Kep.svg?branch=master)](https://travis-ci.org/KepPHP/Kep)
 [![Total Downloads](https://poser.pugx.org/kepphp/kep/downloads)](https://packagist.org/packages/kepphp/kep)
 [![Latest Stable Version](https://poser.pugx.org/kepphp/kep/v/stable)](https://packagist.org/packages/kepphp/kep)
