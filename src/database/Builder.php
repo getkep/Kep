@@ -5,32 +5,32 @@ namespace KepPHP\Kep\database;
 class Builder
 {
     /**
-         * @acess private
-         *
-         * @var string
-         */
-        private $table;
+     * @acess private
+     *
+     * @var string
+     */
+    private $table;
 
-        /**
-         * @acess private
-         *
-         * @var string or array 
-         */
-        private $selects;
+    /**
+     * @acess private
+     *
+     * @var string or array 
+     */
+    private $selects;
 
-        /**
-         * @acess private
-         *
-         * @var string
-         */
-        private $create;
+    /**
+     * @acess private
+     *
+     * @var string
+     */
+    private $create;
 
-        /**
-         * @acess private
-         *
-         * @var array
-         */
-        private $conn;
+    /**
+     * @acess private
+     *
+     * @var array
+     */
+    private $conn;
 
     public function index($table, $selects = '*')
     {
