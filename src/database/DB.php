@@ -3,6 +3,7 @@
 namespace KepPHP\Kep\database;
 
 use KepPHP\Kep\config\config;
+use KepPHP\Kep\database\Query\Builder;
 
 class DB extends config
 {

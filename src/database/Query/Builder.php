@@ -1,6 +1,8 @@
 <?php
 
-namespace KepPHP\Kep\database;
+namespace KepPHP\Kep\database\Query;
+
+use KepPHP\Kep\database\Connection;
 
 class Builder
 {
@@ -34,6 +36,7 @@ class Builder
 
     public function index($table, $selects = '*')
     {
+        $this->conn = new Connection();
         $this->table = (string) $table;
         $this->selects = (string) $selects;
 
