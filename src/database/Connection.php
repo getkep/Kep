@@ -13,7 +13,11 @@ class Connection
      */
 	protected $pdo;
 
-	// Class connection PDO
+	/**
+     * Create a new database connection instance.
+     *
+     * @return PDO
+     */
 	public function __construct()
 	{
 		$config = config::getConfig();
