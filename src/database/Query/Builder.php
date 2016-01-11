@@ -83,7 +83,7 @@ class Builder
     private function connect()
     {
         // $this->conn = parent::conn();
-            // $this->create = $this->conn->prepare($this->create);
+        // $this->create = $this->conn->prepare($this->create);
     }
 
     public function selects()
