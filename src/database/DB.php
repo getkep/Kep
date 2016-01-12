@@ -4,19 +4,17 @@ namespace KepPHP\Kep\database;
 
 use KepPHP\Kep\config\config;
 use KepPHP\Kep\database\Query\Builder;
-use KepPHP\Kep\database\Connection;
-use KepPHP\Kep\database\Grammar;
 
 class DB extends config
 {
     /**
-     * Gets ready query
+     * Gets ready query.
      * 
      * @acess private
      */
     private static $query;
 
-    /**
+        /**
          * Query builder v2.
          * 
          * @acess public
@@ -64,7 +62,7 @@ class DB extends config
 
             $start = self::db();
 
-            $static = $start->query("{self::query}");
+            $static = $start->query('{self::query}');
             $result1 = $static->num_rows;
 
             $result = [];
@@ -94,7 +92,7 @@ class DB extends config
 
             $start = self::db();
 
-            $static = $start->query("{self::query}");
+            $static = $start->query('{self::query}');
             $result = $start->affected_rows;
 
             return ['affected' => $result];
@@ -113,7 +111,7 @@ class DB extends config
 
             $start = self::db();
 
-            $static = $start->query("{self::query}");
+            $static = $start->query('{self::query}');
             $result = $start->affected_rows;
             $result2 = $start->insert_id;
 
@@ -136,7 +134,7 @@ class DB extends config
 
             $start = self::db();
 
-            $static = $start->query("{self::query}");
+            $static = $start->query('{self::query}');
             $result = $start->affected_rows;
 
             return ['affected' => $result];
