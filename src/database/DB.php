@@ -20,7 +20,7 @@ class DB extends config
      * @acess public
      *
      * @return KepPHP\Kep\database\Builder|static
-    */
+     */
     public function table($table, $selects = '*')
     {
         $Builder = new Builder();
