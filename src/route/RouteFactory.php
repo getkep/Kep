@@ -102,7 +102,7 @@ class RouteFactory
                 if (array_key_exists('uses', $action)) {
                     $uses = explode('@', $action['uses']);
 
-                    $this->createController($uses, $this->params);
+                    $this->callController($uses, $this->params);
 
                     return $this;
                 }
@@ -126,7 +126,7 @@ class RouteFactory
                 if (array_key_exists('uses', $action)) {
                     $uses = explode('@', $action['uses']);
 
-                    $this->createController($uses, $this->params);
+                    $this->callController($uses, $this->params);
 
                     return $this;
                 }
@@ -187,7 +187,7 @@ class RouteFactory
 	 * 
 	 * @return $this
 	 */
-	private function createController($uses, $params)
+	private function callController($uses, $params)
 	{
 		$ctrl = new Controller();
 		return $ctrl->getController($uses[0], $uses[1], $params);

@@ -20,9 +20,9 @@ class Group
     public function prefix($prefix)
     {
         if (empty($prefix)) {
-            self::$uri = '/'.parent::request();
+            $this->uri = '/'.parent::request();
         } else {
-            self::$uri = '/'.$prefix.'/';
+            $this->uri = '/'.$prefix.'/';
         }
     }
 
@@ -35,7 +35,7 @@ class Group
      */
     public function group($prefix, $function)
     {
-        self::prefix($prefix);
+        $this->prefix($prefix);
         $function();
     }
 }
