@@ -14,167 +14,167 @@ class DB extends config
      */
     private $query;
 
-        /**
-         * Query builder v2.
-         * 
-         * @acess public
-         *
-         * @return KepPHP\Kep\database\Builder|static
-         */
-        public function table($table, $selects = '*')
-        {
-            $Builder = new Builder();
+    /**
+     * Query builder v2.
+     * 
+     * @acess public
+     *
+     * @return KepPHP\Kep\database\Builder|static
+    */
+    public function table($table, $selects = '*')
+    {
+        $Builder = new Builder();
 
-            $Builder->index($table, $selects);
+        $Builder->index($table, $selects);
 
-            return $Builder;
+        return $Builder;
+    }
+
+    /**
+     * Connection to the database - Driver MySQLi.
+     *
+     * @acess public
+     *
+     * @return array
+     */
+    public function db()
+    {
+        $json = parent::getConfig();
+
+        $conn = new \mysqli($json['connections']['mysql']['host'], $json['connections']['mysql']['username'], $json['connections']['mysql']['password'], $json['connections']['mysql']['database']);
+        if (mysqli_connect_errno()) {
+            trigger_error(mysqli_connect_error());
         }
 
-        /**
-         * Connection to the database - Driver MySQLi.
-         *
-         * @acess public
-         *
-         * @return array
-         */
-        public function db()
-        {
-            $json = parent::getConfig();
+        return $conn;
+    }
 
-            $conn = new \mysqli($json['connections']['mysql']['host'], $json['connections']['mysql']['username'], $json['connections']['mysql']['password'], $json['connections']['mysql']['database']);
-            if (mysqli_connect_errno()) {
-                trigger_error(mysqli_connect_error());
-            }
+    /**
+     * Query Builder - data selection in the database.
+     *
+     * @acess public
+     *
+     * @return array
+     */
+    public function select($Query, $parameters, $Order = null)
+    {
+        $this->query = Grammar::wrapSelect($Query, $parameters, $Order);
 
-            return $conn;
+        $start = $this->db();
+
+        $static = $start->query('{$this->query}');
+        $result1 = $static->num_rows;
+
+        $result = [];
+
+        while ($fetch = $static->fetch_array(MYSQLI_ASSOC)) {
+            $result[] = $fetch;
         }
 
-        /**
-         * Query Builder - data selection in the database.
-         *
-         * @acess public
-         *
-         * @return array
-         */
-        public function select($Query, $parameters, $Order = null)
-        {
-            $this->query = Grammar::wrapSelect($Query, $parameters, $Order);
+        $array = [
+            'num_rows'    => $result1,
+            'fetch_array' => $result,
+        ];
 
-            $start = $this->db();
+        return $array;
+    }
 
-            $static = $start->query('{$this->query}');
-            $result1 = $static->num_rows;
+    /**
+     * Query Builder - data update in the database.
+     *
+     * @acess public
+     *
+     * @return array
+     */
+    public function update($Query, $parameters)
+    {
+        $this->query = Grammar::wrapUpdate($Query, $parameters);
 
-            $result = [];
+        $start = $this->db();
 
-            while ($fetch = $static->fetch_array(MYSQLI_ASSOC)) {
-                $result[] = $fetch;
-            }
+        $static = $start->query('{$this->query}');
+        $result = $start->affected_rows;
 
-            $array = [
-                'num_rows'    => $result1,
-                'fetch_array' => $result,
-            ];
+        return ['affected' => $result];
+    }
 
-            return $array;
-        }
+    /**
+     * Query Builder - insert data in the database.
+     *
+     * @acess public
+     *
+     * @return array
+     */
+    public function insert($Query, $parameters)
+    {
+        $this->$query = Grammar::wrapInsert($Query, $parameters);
 
-        /**
-         * Query Builder - data update in the database.
-         *
-         * @acess public
-         *
-         * @return array
-         */
-        public function update($Query, $parameters)
-        {
-            $this->query = Grammar::wrapUpdate($Query, $parameters);
+        $start = $this->db();
 
-            $start = $this->db();
+        $static = $start->query('{$this->query}');
+        $result = $start->affected_rows;
+        $result2 = $start->insert_id;
 
-            $static = $start->query('{$this->query}');
-            $result = $start->affected_rows;
+        return [
+            'affected'  => $result,
+            'insert_id' => $result2,
+        ];
+    }
 
-            return ['affected' => $result];
-        }
+    /**
+     * Query Builder - delete data in the database.
+     *
+     * @acess public
+     *
+     * @return array
+     */
+    public function delete($Query, $parameters)
+    {
+        $this->$query = Grammar::wrapDelete($Query, $parameters);
 
-        /**
-         * Query Builder - insert data in the database.
-         *
-         * @acess public
-         *
-         * @return array
-         */
-        public function insert($Query, $parameters)
-        {
-            $this->$query = Grammar::wrapInsert($Query, $parameters);
+        $start = $this->db();
 
-            $start = $this->db();
+        $static = $start->query('{$this->query}');
+        $result = $start->affected_rows;
 
-            $static = $start->query('{$this->query}');
-            $result = $start->affected_rows;
-            $result2 = $start->insert_id;
+        return ['affected' => $result];
+    }
 
-            return [
-                'affected'  => $result,
-                'insert_id' => $result2,
-            ];
-        }
+    /**
+     * Checks if authentication is enabled.
+     *
+     * @acess public
+     *
+     * @return array
+     */
+    public function isAuth()
+    {
+        $config = parent::getConfig();
 
-        /**
-         * Query Builder - delete data in the database.
-         *
-         * @acess public
-         *
-         * @return array
-         */
-        public function delete($Query, $parameters)
-        {
-            $this->$query = Grammar::wrapDelete($Query, $parameters);
+        $Active = $config['authentication']['mysqli']['activate'];
 
-            $start = $this->db();
+        return $Active;
+    }
 
-            $static = $start->query('{$this->query}');
-            $result = $start->affected_rows;
+    /**
+     * Get the token saved in the database.
+     *
+     * @acess public
+     *
+     * @return array
+     */
+    public function authentication()
+    {
+        $config = parent::getConfig();
 
-            return ['affected' => $result];
-        }
+        $Column = $config['authentication']['mysqli']['column'];
+        $Database = $config['connections']['mysql']['database'];
+        $Table = $config['authentication']['mysqli']['table'];
 
-        /**
-         * Checks if authentication is enabled.
-         *
-         * @acess public
-         *
-         * @return array
-         */
-        public function isAuth()
-        {
-            $config = parent::getConfig();
+        $result = $this->select('SELECT '.$Column.' FROM '.$Database.'.'.$Table.' WHERE '.$Column.'= ?', [$_SESSION['token']]);
 
-            $Active = $config['authentication']['mysqli']['activate'];
+        $Date = $result['fetch_array'][0][$Column];
 
-            return $Active;
-        }
-
-        /**
-         * Get the token saved in the database.
-         *
-         * @acess public
-         *
-         * @return array
-         */
-        public function authentication()
-        {
-            $config = parent::getConfig();
-
-            $Column = $config['authentication']['mysqli']['column'];
-            $Database = $config['connections']['mysql']['database'];
-            $Table = $config['authentication']['mysqli']['table'];
-
-            $result = $this->select('SELECT '.$Column.' FROM '.$Database.'.'.$Table.' WHERE '.$Column.'= ?', [$_SESSION['token']]);
-
-            $Date = $result['fetch_array'][0][$Column];
-
-            return $Date;
-        }
+        return $Date;
+    }
 }
