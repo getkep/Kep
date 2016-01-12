@@ -9,7 +9,7 @@ class Group
      *
      * @var string
      */
-    public static $uri;
+    public $uri;
 
     /**
      * Responsible to record the group name.
@@ -17,7 +17,7 @@ class Group
      * @param string $prefix
      * @acess public
      */
-    public static function prefix($prefix)
+    public function prefix($prefix)
     {
         if (empty($prefix)) {
             self::$uri = '/'.parent::request();
@@ -30,10 +30,10 @@ class Group
      * Create group.
      *
      * @param string $prefix
-     * @param  $function
+     * @param $function
      * @acess public
      */
-    public static function group($prefix, $function)
+    public function group($prefix, $function)
     {
         self::prefix($prefix);
         $function();
