@@ -4,9 +4,18 @@ namespace KepPHP\Kep\database;
 
 use KepPHP\Kep\config\config;
 use KepPHP\Kep\database\Query\Builder;
+use KepPHP\Kep\database\Connection;
+use KepPHP\Kep\database\Grammar;
 
 class DB extends config
 {
+    /**
+     * Gets ready query
+     * 
+     * @acess private
+     */
+    private static $query;
+
     /**
          * Query builder v2.
          * 
@@ -51,31 +60,11 @@ class DB extends config
          */
         public static function select($Query, $parameters, $Order = null)
         {
-            if (strpos($Query, '?')) {
-                $array = explode('?', $Query);
-                $array = array_filter($array);
-                $count = count($parameters);
-                $n = 0;
-                foreach ($array as $add) {
-                    if (is_numeric($parameters[$n])) {
-                        $array2[] = $add.$parameters[$n];
-                    } else {
-                        $array2[] = $add."'".$parameters[$n]."'";
-                    }
-
-                    $n++;
-                }
-
-                if ($Order !== null) {
-                    $array2[] = ' '.$Order;
-                }
-
-                $string = implode($array2, '');
-            }
+            self::$query = Grammar::wrapSelect($Query, $parameters, $Order);
 
             $start = self::db();
 
-            $static = $start->query("$string");
+            $static = $start->query("{self::query}");
             $result1 = $static->num_rows;
 
             $result = [];
@@ -101,25 +90,11 @@ class DB extends config
          */
         public static function update($Query, $parameters)
         {
-            if (strpos($Query, '?')) {
-                $array = explode('?', $Query);
-                $array = array_filter($array);
-                $n = 0;
-                foreach ($array as $add) {
-                    if (is_numeric($parameters[$n])) {
-                        $array2[] = $add.$parameters[$n];
-                    } else {
-                        $array2[] = $add."'".$parameters[$n]."'";
-                    }
-                    $n++;
-                }
-
-                $string = implode($array2, '');
-            }
+            self::$query = Grammar::wrapUpdate($Query, $parameters);
 
             $start = self::db();
 
-            $static = $start->query($string);
+            $static = $start->query("{self::query}");
             $result = $start->affected_rows;
 
             return ['affected' => $result];
@@ -134,29 +109,11 @@ class DB extends config
          */
         public static function insert($Query, $parameters)
         {
-            if (strpos($Query, '?')) {
-                $array = explode('?', $Query);
-                $array = array_filter($array);
-                $n = 0;
-                foreach ($array as $add) {
-                    if ($add == end($array)) {
-                        $array2[] = $add;
-                    } else {
-                        if (is_numeric($parameters[$n])) {
-                            $array2[] = $add.$parameters[$n];
-                        } else {
-                            $array2[] = $add."'".$parameters[$n]."'";
-                        }
-                    }
-                    $n++;
-                }
-
-                $string = implode($array2, '');
-            }
+            self::$query = Grammar::wrapInsert($Query, $parameters);
 
             $start = self::db();
 
-            $static = $start->query($string);
+            $static = $start->query("{self::query}");
             $result = $start->affected_rows;
             $result2 = $start->insert_id;
 
@@ -175,25 +132,11 @@ class DB extends config
          */
         public static function delete($Query, $parameters)
         {
-            if (strpos($Query, '?')) {
-                $array = explode('?', $Query);
-                $array = array_filter($array);
-                $n = 0;
-                foreach ($array as $add) {
-                    if (is_numeric($parameters[$n])) {
-                        $array2[] = $add.$parameters[$n];
-                    } else {
-                        $array2[] = $add."'".$parameters[$n]."'";
-                    }
-                    $n++;
-                }
-
-                $string = implode($array2, '');
-            }
+            self::$query = Grammar::wrapDelete($Query, $parameters);
 
             $start = self::db();
 
-            $static = $start->query($string);
+            $static = $start->query("{self::query}");
             $result = $start->affected_rows;
 
             return ['affected' => $result];
@@ -235,17 +178,5 @@ class DB extends config
             $Date = $result['fetch_array'][0][$Column];
 
             return $Date;
-        }
-
-        /**
-         * Function for class hierarchy of test.
-         *
-         * @acess public
-         *
-         * @return string
-         */
-        public static function testing()
-        {
-            return 'Testing class';
         }
 }
