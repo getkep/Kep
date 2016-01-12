@@ -4,14 +4,14 @@ namespace KepPHP\Kep\database;
 
 class Grammar
 {
-	/**
-	 * Wrap syntax of the select
-	 * 
-	 * @acess public
-	 */
-	public function wrapSelect($Query, $parameters, $Order = null)
-	{
-		if (strpos($Query, '?')) {
+    /**
+     * Wrap syntax of the select.
+     * 
+     * @acess public
+     */
+    public function wrapSelect($Query, $parameters, $Order = null)
+    {
+        if (strpos($Query, '?')) {
             $array = explode('?', $Query);
             $array = array_filter($array);
             $count = count($parameters);
@@ -36,16 +36,16 @@ class Grammar
         }
 
         return;
-	}
+    }
 
-	/**
-	 * Wrap syntax of the update
-	 * 
-	 * @acess public
-	 */
-	public function wrapUpdate($Query, $parameters)
-	{
-		if (strpos($Query, '?')) {
+    /**
+     * Wrap syntax of the update.
+     * 
+     * @acess public
+     */
+    public function wrapUpdate($Query, $parameters)
+    {
+        if (strpos($Query, '?')) {
             $array = explode('?', $Query);
             $array = array_filter($array);
             $n = 0;
@@ -64,16 +64,16 @@ class Grammar
         }
 
         return;
-	}
+    }
 
-	/**
-	 * Wrap syntax of the insert
-	 * 
-	 * @acess public
-	 */
-	public function wrapInsert($Query, $parameters)
-	{
-		if (strpos($Query, '?')) {
+    /**
+     * Wrap syntax of the insert.
+     * 
+     * @acess public
+     */
+    public function wrapInsert($Query, $parameters)
+    {
+        if (strpos($Query, '?')) {
             $array = explode('?', $Query);
             $array = array_filter($array);
             $n = 0;
@@ -96,16 +96,16 @@ class Grammar
         }
 
         return;
-	}
+    }
 
-	/**
-	 * Wrap syntax of the delete
-	 * 
-	 * @acess public
-	 */
-	public function wrapDelete($Query, $parameters)
-	{
-		if (strpos($Query, '?')) {
+    /**
+     * Wrap syntax of the delete.
+     * 
+     * @acess public
+     */
+    public function wrapDelete($Query, $parameters)
+    {
+        if (strpos($Query, '?')) {
             $array = explode('?', $Query);
             $array = array_filter($array);
             $n = 0;
@@ -124,5 +124,5 @@ class Grammar
         }
 
         return;
-	}
+    }
 }
