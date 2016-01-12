@@ -1,8 +1,9 @@
 <?php
 
-namespace KepPHP\Kep\database
+namespace KepPHP\Kep\database;
 
-class Grammar{
+class Grammar
+{
 	/**
 	 * Wrap syntax of the select
 	 * 
