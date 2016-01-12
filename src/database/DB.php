@@ -12,7 +12,7 @@ class DB extends config
      * 
      * @acess private
      */
-    private static $query;
+    private $query;
 
         /**
          * Query builder v2.
@@ -21,7 +21,7 @@ class DB extends config
          *
          * @return KepPHP\Kep\database\Builder|static
          */
-        public static function table($table, $selects = '*')
+        public function table($table, $selects = '*')
         {
             $Builder = new Builder();
 
@@ -37,7 +37,7 @@ class DB extends config
          *
          * @return array
          */
-        public static function db()
+        public function db()
         {
             $json = parent::getConfig();
 
@@ -56,13 +56,13 @@ class DB extends config
          *
          * @return array
          */
-        public static function select($Query, $parameters, $Order = null)
+        public function select($Query, $parameters, $Order = null)
         {
-            self::$query = Grammar::wrapSelect($Query, $parameters, $Order);
+            $this->query = Grammar::wrapSelect($Query, $parameters, $Order);
 
-            $start = self::db();
+            $start = $this->db();
 
-            $static = $start->query('{self::query}');
+            $static = $start->query('{$this->query}');
             $result1 = $static->num_rows;
 
             $result = [];
@@ -86,13 +86,13 @@ class DB extends config
          *
          * @return array
          */
-        public static function update($Query, $parameters)
+        public function update($Query, $parameters)
         {
-            self::$query = Grammar::wrapUpdate($Query, $parameters);
+            $this->query = Grammar::wrapUpdate($Query, $parameters);
 
-            $start = self::db();
+            $start = $this->db();
 
-            $static = $start->query('{self::query}');
+            $static = $start->query('{$this->query}');
             $result = $start->affected_rows;
 
             return ['affected' => $result];
@@ -105,13 +105,13 @@ class DB extends config
          *
          * @return array
          */
-        public static function insert($Query, $parameters)
+        public function insert($Query, $parameters)
         {
-            self::$query = Grammar::wrapInsert($Query, $parameters);
+            $this->$query = Grammar::wrapInsert($Query, $parameters);
 
-            $start = self::db();
+            $start = $this->db();
 
-            $static = $start->query('{self::query}');
+            $static = $start->query('{$this->query}');
             $result = $start->affected_rows;
             $result2 = $start->insert_id;
 
@@ -128,13 +128,13 @@ class DB extends config
          *
          * @return array
          */
-        public static function delete($Query, $parameters)
+        public function delete($Query, $parameters)
         {
-            self::$query = Grammar::wrapDelete($Query, $parameters);
+            $this->$query = Grammar::wrapDelete($Query, $parameters);
 
-            $start = self::db();
+            $start = $this->db();
 
-            $static = $start->query('{self::query}');
+            $static = $start->query('{$this->query}');
             $result = $start->affected_rows;
 
             return ['affected' => $result];
@@ -147,7 +147,7 @@ class DB extends config
          *
          * @return array
          */
-        public static function isAuth()
+        public function isAuth()
         {
             $config = parent::getConfig();
 
@@ -163,7 +163,7 @@ class DB extends config
          *
          * @return array
          */
-        public static function authentication()
+        public function authentication()
         {
             $config = parent::getConfig();
 
@@ -171,7 +171,7 @@ class DB extends config
             $Database = $config['connections']['mysql']['database'];
             $Table = $config['authentication']['mysqli']['table'];
 
-            $result = self::select('SELECT '.$Column.' FROM '.$Database.'.'.$Table.' WHERE '.$Column.'= ?', [$_SESSION['token']]);
+            $result = $this->select('SELECT '.$Column.' FROM '.$Database.'.'.$Table.' WHERE '.$Column.'= ?', [$_SESSION['token']]);
 
             $Date = $result['fetch_array'][0][$Column];
 
