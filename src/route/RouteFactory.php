@@ -31,7 +31,6 @@ class RouteFactory extends Group
      */
     private $verbs = ['GET', 'POST', 'PUT', 'DELETE'];
 
-
     /**
      * Call the parameters and request.
      *
