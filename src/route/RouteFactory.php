@@ -155,30 +155,41 @@ class RouteFactory extends Group
                 $array = explode('/', $endpoint);
                 $array = array_filter($array);
 
-                $n = 1;
-                foreach ($array as $add) {
-                    $var = substr($add, 0, 1);
-                    if ($var == ':') {
-                        $params[str_replace(':', '', $add)] = $arrayRequest[$n];
-                        $uri1[] = $add;
-                        $uri3[] = $arrayRequest[$n];
-                    } else {
-                        $uri2[] = $add;
-                    }
-
-                    $n++;
-                }
-
-                $replace = str_replace($uri1, $uri3, $array);
-                $endpoint = implode($replace, '/');
-
-                return $endpoint;
+                return $this->mergeEndpoint($array, $arrayRequest);
             } else {
                 return;
             }
         }
 
         return;
+    }
+
+    /**
+     * Merges the endpoint of the index and received by getRequest.
+     * 
+     * @acess private
+     * 
+     * @return string
+     */
+    private function mergeEndpoint($array, $arrayRequest)
+    {
+        $n = 1;
+        foreach ($array as $add) {
+            $var = substr($add, 0, 1);
+            if ($var == ':') {
+                $params[str_replace(':', '', $add)] = $arrayRequest[$n];
+                $uri1[] = $add;
+                $uri3[] = $arrayRequest[$n];
+            } else {
+                $uri2[] = $add;
+            }
+
+            $n++;
+        }
+
+        $replace = str_replace($uri1, $uri3, $array);
+
+        return implode($replace, '/');
     }
 
     /**
