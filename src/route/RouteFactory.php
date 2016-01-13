@@ -6,37 +6,38 @@ use KepPHP\Kep\kep as Controller;
 
 class RouteFactory extends Group
 {
-	/**
-	 * Gets past data
-	 * 
-	 * @acess private
-	 * 
-	 * @var array
-	 */
-	private $params;
+    /**
+     * Gets past data.
+     * 
+     * @acess private
+     * 
+     * @var array
+     */
+    private $params;
 
-	/**
-	 * Gets the uri
-	 * 
-	 * @acess private
-	 * 
-	 * @var string
-	 */
-	private $request;
+    /**
+     * Gets the uri.
+     * 
+     * @acess private
+     * 
+     * @var string
+     */
+    private $request;
 
-	/**
+    /**
      * Verbs supported by the route.
      *
      * @var array
      */
     private $verbs = ['GET', 'POST', 'PUT', 'DELETE'];
 
-    function __construct(){
-    	$this->getParams();
-    	$this->getRequest();
+    public function __construct()
+    {
+        $this->getParams();
+        $this->getRequest();
     }
 
-	/**
+    /**
      * Getting variables for communication.
      *
      * @acess private
@@ -46,53 +47,53 @@ class RouteFactory extends Group
     private function getRequest()
     {
         $this->request = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : null;
-    	
-    	return $this;
+
+        return $this;
     }
 
-	/**
-	 * Search parameters in php:/input and stores.
-	 * 
-	 * @acess private
-	 * 
-	 * @return $this
-	 */
-	private function getParams()
-	{
-		$this->params = file_get_contents('php://input');
-		$this->params = json_decode($this->params);
-		
+    /**
+     * Search parameters in php:/input and stores.
+     * 
+     * @acess private
+     * 
+     * @return $this
+     */
+    private function getParams()
+    {
+        $this->params = file_get_contents('php://input');
+        $this->params = json_decode($this->params);
+
         return $this;
-	}
+    }
 
-	/**
-	 * Identify the routes and calls mount.
-	 * 
-	 * @acess public
-	 * 
-	 * @return $this
-	 */
-	public function addRoute($HTTP, $endpoint, $action)
-	{	
-		if($HTTP == $this->verbs[0]){
-			$this->mountGet($endpoint, $action);
-		}elseif($HTTP == $this->verbs[1] or $HTTP == $this->verbs[2] or $HTTP == $this->verbs[3]){
-			$this->mountRoute($endpoint, $action);
-		}
+    /**
+     * Identify the routes and calls mount.
+     * 
+     * @acess public
+     * 
+     * @return $this
+     */
+    public function addRoute($HTTP, $endpoint, $action)
+    {
+        if ($HTTP == $this->verbs[0]) {
+            $this->mountGet($endpoint, $action);
+        } elseif ($HTTP == $this->verbs[1] or $HTTP == $this->verbs[2] or $HTTP == $this->verbs[3]) {
+            $this->mountRoute($endpoint, $action);
+        }
 
-		return;
-	}
+        return;
+    }
 
-	/**
-	 * Riding the routes POST, PUT and DELETE.
-	 * 
-	 * @acess private
-	 * 
-	 * @return $this
-	 */
-	private function mountRoute($endpoint, $action)
-	{
-		if ($this->request == parent::$uri.$endpoint) {
+    /**
+     * Riding the routes POST, PUT and DELETE.
+     * 
+     * @acess private
+     * 
+     * @return $this
+     */
+    private function mountRoute($endpoint, $action)
+    {
+        if ($this->request == parent::$uri.$endpoint) {
             if (is_array($action)) {
                 if (array_key_exists('uses', $action)) {
                     $uses = explode('@', $action['uses']);
@@ -103,18 +104,18 @@ class RouteFactory extends Group
                 $action();
             }
         }
-	}
+    }
 
-	/**
-	 * Riding the route GET.
-	 * 
-	 * @acess private
-	 * 
-	 * @return $this
-	 */
-	private function mountGet($endpoint, $action)
-	{
-		if ($this->request == '/'.$this->wrapGet($endpoint, $action)) {
+    /**
+     * Riding the route GET.
+     * 
+     * @acess private
+     * 
+     * @return $this
+     */
+    private function mountGet($endpoint, $action)
+    {
+        if ($this->request == '/'.$this->wrapGet($endpoint, $action)) {
             if (is_array($action)) {
                 if (array_key_exists('uses', $action)) {
                     $uses = explode('@', $action['uses']);
@@ -127,18 +128,18 @@ class RouteFactory extends Group
                 $action();
             }
         }
-	}
+    }
 
-	/**
-	 * Creation syntax of get the endpoint
-	 * 
-	 * @acess private
-	 * 
-	 * @return $this
-	 */
-	private function wrapGet($endpoint, $action)
-	{
-		if (strpos($endpoint, ':')) {
+    /**
+     * Creation syntax of get the endpoint.
+     * 
+     * @acess private
+     * 
+     * @return $this
+     */
+    private function wrapGet($endpoint, $action)
+    {
+        if (strpos($endpoint, ':')) {
             if (strpos($endpoint, '/')) {
                 $arrayRequest = explode('/', $this->request);
                 $arrayRequest = array_filter($arrayRequest);
@@ -166,23 +167,24 @@ class RouteFactory extends Group
 
                 return $endpoint;
             } else {
-            	return;
+                return;
             }
         }
 
         return;
-	}
+    }
 
-	/**
-	 * Passes the parameters to create the controller.
-	 * 
-	 * @acess private
-	 * 
-	 * @return $this
-	 */
-	private function callController($uses, $params)
-	{
-		$ctrl = new Controller();
-		return $ctrl->getController($uses[0], $uses[1], $params);
-	}
+    /**
+     * Passes the parameters to create the controller.
+     * 
+     * @acess private
+     * 
+     * @return $this
+     */
+    private function callController($uses, $params)
+    {
+        $ctrl = new Controller();
+
+        return $ctrl->getController($uses[0], $uses[1], $params);
+    }
 }

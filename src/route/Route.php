@@ -4,9 +4,9 @@ namespace KepPHP\Kep\route;
 
 use KepPHP\Kep\route\RouteFactory as Factory;
 
-    class Route extends Group
-    {
-        /**
+class Route extends Group
+{
+    /**
          * POST interprets the communication and calls the controller if there.
          *
          * @acess public
@@ -14,6 +14,7 @@ use KepPHP\Kep\route\RouteFactory as Factory;
         public static function post($endpoint, $function)
         {
             $Factory = new Factory();
+
             return $Factory->addRoute('POST', $endpoint, $function);
         }
 
@@ -25,6 +26,7 @@ use KepPHP\Kep\route\RouteFactory as Factory;
         public static function get($endpoint, $function)
         {
             $Factory = new Factory();
+
             return $Factory->addRoute('GET', $endpoint, $function);
         }
 
@@ -36,6 +38,7 @@ use KepPHP\Kep\route\RouteFactory as Factory;
         public static function put($endpoint, $function)
         {
             $Factory = new Factory();
+
             return $Factory->addRoute('PUT', $endpoint, $function);
         }
 
@@ -47,6 +50,7 @@ use KepPHP\Kep\route\RouteFactory as Factory;
         public static function delete($endpoint, $function)
         {
             $Factory = new Factory();
+
             return $Factory->addRoute('DELETE', $endpoint, $function);
         }
-    }
+}
