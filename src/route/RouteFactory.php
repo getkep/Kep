@@ -126,7 +126,7 @@ class RouteFactory extends Group
      */
     private function wrapRoute($action)
     {
-    	if (is_array($action)) {
+        if (is_array($action)) {
             if (array_key_exists('uses', $action)) {
                 $uses = explode('@', $action['uses']);
 
