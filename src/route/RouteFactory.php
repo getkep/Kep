@@ -99,15 +99,7 @@ class RouteFactory extends Group
     private function mountRoute($endpoint, $action)
     {
         if ($this->request == parent::$uri.$endpoint) {
-            if (is_array($action)) {
-                if (array_key_exists('uses', $action)) {
-                    $uses = explode('@', $action['uses']);
-
-                    $this->callController($uses, $this->params);
-                }
-            } else {
-                $action();
-            }
+            $this->wrapRoute($action);
         }
     }
 
@@ -121,17 +113,27 @@ class RouteFactory extends Group
     private function mountGet($endpoint, $action)
     {
         if ($this->request == '/'.$this->wrapGet($endpoint, $action)) {
-            if (is_array($action)) {
-                if (array_key_exists('uses', $action)) {
-                    $uses = explode('@', $action['uses']);
+            $this->wrapRoute($action);
+        }
+    }
 
-                    $this->callController($uses, $this->params);
+    /**
+     * Checks if it is a closure and separate information to call the controller and action.
+     * 
+     * @acess private
+     * 
+     * @return $this
+     */
+    private function wrapRoute($action)
+    {
+    	if (is_array($action)) {
+            if (array_key_exists('uses', $action)) {
+                $uses = explode('@', $action['uses']);
 
-                    return $this;
-                }
-            } else {
-                $action();
+                $this->callController($uses, $this->params);
             }
+        } else {
+            $action();
         }
     }
 
