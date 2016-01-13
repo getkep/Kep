@@ -31,6 +31,12 @@ class RouteFactory extends Group
      */
     private $verbs = ['GET', 'POST', 'PUT', 'DELETE'];
 
+
+    /**
+     * Call the parameters and request.
+     *
+     * @acess public
+     */
     public function __construct()
     {
         $this->getParams();
