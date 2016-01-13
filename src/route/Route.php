@@ -2,7 +2,7 @@
 
 namespace KepPHP\Kep\route;
 
-use RouteFactory as Factory;
+use KepPHP\Kep\route\RouteFactory as Factory;
 
     class Route extends Group
     {
@@ -11,9 +11,10 @@ use RouteFactory as Factory;
          *
          * @acess public
          */
-        public static function post($endpoint, $function)
+        public function post($endpoint, $function)
         {
-            return Factory::addRoute('POST', $endpoint, $function);
+            $Factory = new Factory();
+            return $Factory->addRoute('POST', $endpoint, $function);
         }
 
         /**
@@ -21,9 +22,10 @@ use RouteFactory as Factory;
          *
          * @acess public
          */
-        public static function get($endpoint, $function)
+        public function get($endpoint, $function)
         {
-            return Factory::addRoute('GET', $endpoint, $function);
+            $Factory = new Factory();
+            return $Factory->addRoute('GET', $endpoint, $function);
         }
 
         /**
@@ -31,9 +33,10 @@ use RouteFactory as Factory;
          *
          * @acess public
          */
-        public static function put($endpoint, $function)
+        public function put($endpoint, $function)
         {
-            return Factory::addRoute('PUT', $endpoint, $function);
+            $Factory = new Factory();
+            return $Factory->addRoute('PUT', $endpoint, $function);
         }
 
         /**
@@ -41,8 +44,9 @@ use RouteFactory as Factory;
          *
          * @acess public
          */
-        public static function delete($endpoint, $function)
+        public function delete($endpoint, $function)
         {
-            return Factory::addRoute('DELETE', $endpoint, $function);
+            $Factory = new Factory();
+            return $Factory->addRoute('DELETE', $endpoint, $function);
         }
     }

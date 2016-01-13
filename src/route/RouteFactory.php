@@ -3,9 +3,8 @@
 namespace KepPHP\Kep\route;
 
 use KepPHP\Kep\kep as Controller;
-use Group;
 
-class RouteFactory
+class RouteFactory extends Group
 {
 	/**
 	 * Gets past data
@@ -30,7 +29,7 @@ class RouteFactory
      *
      * @var array
      */
-    private static $verbs = ['GET', 'POST', 'PUT', 'DELETE'];
+    private $verbs = ['GET', 'POST', 'PUT', 'DELETE'];
 
     function __construct(){
     	$this->getParams();
@@ -61,7 +60,7 @@ class RouteFactory
 	private function getParams()
 	{
 		$this->params = file_get_contents('php://input');
-		$this->params = json_decode($this->params));
+		$this->params = json_decode($this->params);
 		
         return $this;
 	}
@@ -73,16 +72,12 @@ class RouteFactory
 	 * 
 	 * @return $this
 	 */
-	public function addRoute(string $HTTP, $endpoint, $action)
-	{
+	public function addRoute($HTTP, $endpoint, $action)
+	{	
 		if($HTTP == $this->verbs[0]){
 			$this->mountGet($endpoint, $action);
-
-			return $this;
 		}elseif($HTTP == $this->verbs[1] or $HTTP == $this->verbs[2] or $HTTP == $this->verbs[3]){
 			$this->mountRoute($endpoint, $action);
-
-			return $this;
 		}
 
 		return;
@@ -97,14 +92,12 @@ class RouteFactory
 	 */
 	private function mountRoute($endpoint, $action)
 	{
-		if ($this->request == Group::$uri.$endpoint) {
+		if ($this->request == parent::$uri.$endpoint) {
             if (is_array($action)) {
                 if (array_key_exists('uses', $action)) {
                     $uses = explode('@', $action['uses']);
 
                     $this->callController($uses, $this->params);
-
-                    return $this;
                 }
             } else {
                 $action();
@@ -147,10 +140,10 @@ class RouteFactory
 	{
 		if (strpos($endpoint, ':')) {
             if (strpos($endpoint, '/')) {
-                $arrayRequest = explode('/', $this->request;
+                $arrayRequest = explode('/', $this->request);
                 $arrayRequest = array_filter($arrayRequest);
 
-                $endpoint = Group::$uri.$endpoint;
+                $endpoint = parent::$uri.$endpoint;
                 $array = explode('/', $endpoint);
                 $array = array_filter($array);
 
