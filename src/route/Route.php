@@ -11,7 +11,7 @@ use KepPHP\Kep\route\RouteFactory as Factory;
          *
          * @acess public
          */
-        public function post($endpoint, $function)
+        public static function post($endpoint, $function)
         {
             $Factory = new Factory();
             return $Factory->addRoute('POST', $endpoint, $function);
@@ -22,7 +22,7 @@ use KepPHP\Kep\route\RouteFactory as Factory;
          *
          * @acess public
          */
-        public function get($endpoint, $function)
+        public static function get($endpoint, $function)
         {
             $Factory = new Factory();
             return $Factory->addRoute('GET', $endpoint, $function);
@@ -33,7 +33,7 @@ use KepPHP\Kep\route\RouteFactory as Factory;
          *
          * @acess public
          */
-        public function put($endpoint, $function)
+        public static function put($endpoint, $function)
         {
             $Factory = new Factory();
             return $Factory->addRoute('PUT', $endpoint, $function);
@@ -44,7 +44,7 @@ use KepPHP\Kep\route\RouteFactory as Factory;
          *
          * @acess public
          */
-        public function delete($endpoint, $function)
+        public static function delete($endpoint, $function)
         {
             $Factory = new Factory();
             return $Factory->addRoute('DELETE', $endpoint, $function);
