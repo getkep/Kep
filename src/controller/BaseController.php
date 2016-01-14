@@ -4,7 +4,7 @@ namespace KepPHP\Kep\controller;
 
 use KepPHP\Kep\config\config;
 
-class BaseController
+class BaseController extends config
 {
     /**
      * Convert an array in JSON.
@@ -17,7 +17,8 @@ class BaseController
      */
     public function response($array)
     {
-        echo json_encode($array);
+        $json = json_encode($array);
+        echo $json;
     }
 
     /**
@@ -29,10 +30,9 @@ class BaseController
      */
     private function setDirectory()
     {
-        $directory = config::getConfig();
-        $directory = $directory['directory'];
+        $directory = parent::getConfig();
 
-        return $directory;
+        return $directory['directory'];
     }
 
     /**

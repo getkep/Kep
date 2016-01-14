@@ -130,7 +130,7 @@ class RouteFactory extends Group
             if (array_key_exists('uses', $action)) {
                 $uses = explode('@', $action['uses']);
 
-                $this->callController($uses, $this->params);
+                $this->callController($uses);
             }
         } else {
             $action();
@@ -199,10 +199,10 @@ class RouteFactory extends Group
      * 
      * @return $this
      */
-    private function callController($uses, $params)
+    private function callController($uses)
     {
         $ctrl = new Controller();
 
-        return $ctrl->getController($uses[0], $uses[1], $params);
+        return $ctrl->getController($uses[0], $uses[1], $this->params);
     }
 }
