@@ -3,7 +3,7 @@
 namespace KepPHP\Kep\database;
 
 use KepPHP\Kep\config\config;
-use KepPHP\Kep\database\Query\Builder;
+use KepPHP\Kep\database\Grammar;
 
 class DB extends config
 {
@@ -12,23 +12,7 @@ class DB extends config
      * 
      * @acess private
      */
-    private $query;
-
-    /**
-     * Query builder v2.
-     * 
-     * @acess public
-     *
-     * @return KepPHP\Kep\database\Builder|static
-     */
-    public function table($table, $selects = '*')
-    {
-        $Builder = new Builder();
-
-        $Builder->index($table, $selects);
-
-        return $Builder;
-    }
+    private static $query;
 
     /**
      * Connection to the database - Driver MySQLi.
@@ -37,7 +21,7 @@ class DB extends config
      *
      * @return array
      */
-    public function db()
+    public static function db()
     {
         $json = parent::getConfig();
 
@@ -56,13 +40,13 @@ class DB extends config
      *
      * @return array
      */
-    public function select($Query, $parameters, $Order = null)
+    public static function select($Query, $parameters, $Order = null)
     {
-        $this->query = Grammar::wrapSelect($Query, $parameters, $Order);
+        self::$query = Grammar::wrapSelect($Query, $parameters, $Order);
 
-        $start = $this->db();
+        $start = self::db();
 
-        $static = $start->query('{$this->query}');
+        $static = $start->query(self::$query);
         $result1 = $static->num_rows;
 
         $result = [];
@@ -86,13 +70,13 @@ class DB extends config
      *
      * @return array
      */
-    public function update($Query, $parameters)
+    public static function update($Query, $parameters)
     {
-        $this->query = Grammar::wrapUpdate($Query, $parameters);
+        self::$query = Grammar::wrapUpdate($Query, $parameters);
 
-        $start = $this->db();
+        $start = self::db();
 
-        $static = $start->query('{$this->query}');
+        $static = $start->query(self::$query);
         $result = $start->affected_rows;
 
         return ['affected' => $result];
@@ -105,13 +89,13 @@ class DB extends config
      *
      * @return array
      */
-    public function insert($Query, $parameters)
+    public static function insert($Query, $parameters)
     {
-        $this->$query = Grammar::wrapInsert($Query, $parameters);
+        self::$query = Grammar::wrapInsert($Query, $parameters);
 
-        $start = $this->db();
+        $start = self::db();
 
-        $static = $start->query('{$this->query}');
+        $static = $start->query(self::$query);
         $result = $start->affected_rows;
         $result2 = $start->insert_id;
 
@@ -128,13 +112,13 @@ class DB extends config
      *
      * @return array
      */
-    public function delete($Query, $parameters)
+    public static function delete($Query, $parameters)
     {
-        $this->$query = Grammar::wrapDelete($Query, $parameters);
+        self::$query = Grammar::wrapDelete($Query, $parameters);
 
-        $start = $this->db();
+        $start = self::db();
 
-        $static = $start->query('{$this->query}');
+        $static = $start->query(self::$query);
         $result = $start->affected_rows;
 
         return ['affected' => $result];
@@ -147,7 +131,7 @@ class DB extends config
      *
      * @return array
      */
-    public function isAuth()
+    public static function isAuth()
     {
         $config = parent::getConfig();
 
@@ -163,7 +147,7 @@ class DB extends config
      *
      * @return array
      */
-    public function authentication()
+    public static function authentication()
     {
         $config = parent::getConfig();
 
@@ -171,7 +155,7 @@ class DB extends config
         $Database = $config['connections']['mysql']['database'];
         $Table = $config['authentication']['mysqli']['table'];
 
-        $result = $this->select('SELECT '.$Column.' FROM '.$Database.'.'.$Table.' WHERE '.$Column.'= ?', [$_SESSION['token']]);
+        $result = self::select('SELECT '.$Column.' FROM '.$Database.'.'.$Table.' WHERE '.$Column.'= ?', [$_SESSION['token']]);
 
         $Date = $result['fetch_array'][0][$Column];
 
