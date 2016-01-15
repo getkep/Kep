@@ -18,7 +18,7 @@ class Connection
      *
      * @var MYSQLI
      */
-    protected $mysqli;
+    public $mysqli;
 
     /**
      * Configuration.
@@ -35,7 +35,7 @@ class Connection
     public function __construct()
     {
         $this->config = config::getConfig();
-        $this->config = $config['connections'];
+        $this->config = $this->config['connections'];
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace KepPHP\Kep\database;
 
 use KepPHP\Kep\config\config;
+use KepPHP\Kep\database\Query\Builder;
+use KepPHP\Kep\database\Connection;
 
 class DB extends config
 {
@@ -12,25 +14,6 @@ class DB extends config
      * @acess private
      */
     private static $query;
-
-    /**
-     * Connection to the database - Driver MySQLi.
-     *
-     * @acess public
-     *
-     * @return array
-     */
-    public static function db()
-    {
-        $json = parent::getConfig();
-
-        $conn = new \mysqli($json['connections']['mysql']['host'], $json['connections']['mysql']['username'], $json['connections']['mysql']['password'], $json['connections']['mysql']['database']);
-        if (mysqli_connect_errno()) {
-            trigger_error(mysqli_connect_error());
-        }
-
-        return $conn;
-    }
 
     /**
      * Query Builder - data selection in the database.
@@ -43,10 +26,11 @@ class DB extends config
     {
         self::$query = Grammar::wrapSelect($Query, $parameters, $Order);
 
-        $start = self::db();
+        $start = new Connection;
+        $start = $start->mysqli();
 
-        $static = $start->query(self::$query);
-        $result1 = $static->num_rows;
+        $static = $start->mysqli->query(self::$query);
+        $result1 = $static->mysqli->num_rows;
 
         $result = [];
 
@@ -73,10 +57,11 @@ class DB extends config
     {
         self::$query = Grammar::wrapUpdate($Query, $parameters);
 
-        $start = self::db();
+        $start = new Connection;
+        $start = $start->mysqli();
 
-        $static = $start->query(self::$query);
-        $result = $start->affected_rows;
+        $static = $start->mysqli->query(self::$query);
+        $result = $start->mysqli->affected_rows;
 
         return ['affected' => $result];
     }
@@ -92,11 +77,12 @@ class DB extends config
     {
         self::$query = Grammar::wrapInsert($Query, $parameters);
 
-        $start = self::db();
-
-        $static = $start->query(self::$query);
-        $result = $start->affected_rows;
-        $result2 = $start->insert_id;
+        $start = new Connection;
+        $start = $start->mysqli();
+        
+        $static = $start->mysqli->query(self::$query);
+        $result = $start->mysqli->affected_rows;
+        $result2 = $start->mysqli->insert_id;
 
         return [
             'affected'  => $result,
@@ -115,10 +101,11 @@ class DB extends config
     {
         self::$query = Grammar::wrapDelete($Query, $parameters);
 
-        $start = self::db();
+        $start = new Connection;
+        $start = $start->mysqli();
 
-        $static = $start->query(self::$query);
-        $result = $start->affected_rows;
+        $static = $start->mysqli->query(self::$query);
+        $result = $start->mysqli->affected_rows;
 
         return ['affected' => $result];
     }
