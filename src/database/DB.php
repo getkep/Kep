@@ -4,7 +4,6 @@ namespace KepPHP\Kep\database;
 
 use KepPHP\Kep\config\config;
 use KepPHP\Kep\database\Query\Builder;
-use KepPHP\Kep\database\Connection;
 
 class DB extends config
 {
@@ -26,7 +25,7 @@ class DB extends config
     {
         self::$query = Grammar::wrapSelect($Query, $parameters, $Order);
 
-        $start = new Connection;
+        $start = new Connection();
         $start = $start->mysqli();
 
         $static = $start->mysqli->query(self::$query);
@@ -57,7 +56,7 @@ class DB extends config
     {
         self::$query = Grammar::wrapUpdate($Query, $parameters);
 
-        $start = new Connection;
+        $start = new Connection();
         $start = $start->mysqli();
 
         $static = $start->mysqli->query(self::$query);
@@ -77,7 +76,7 @@ class DB extends config
     {
         self::$query = Grammar::wrapInsert($Query, $parameters);
 
-        $start = new Connection;
+        $start = new Connection();
         $start = $start->mysqli();
         
         $static = $start->mysqli->query(self::$query);
@@ -101,7 +100,7 @@ class DB extends config
     {
         self::$query = Grammar::wrapDelete($Query, $parameters);
 
-        $start = new Connection;
+        $start = new Connection();
         $start = $start->mysqli();
 
         $static = $start->mysqli->query(self::$query);
