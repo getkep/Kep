@@ -47,6 +47,13 @@ namespace KepPHP\Kep;
         private $auth;
 
         /**
+         * @acess private
+         * 
+         * @var string Path
+         */
+        private $path;
+
+        /**
          * Mount the controller to perform the actions requested by the route.
          *
          * @acess public
@@ -55,12 +62,13 @@ namespace KepPHP\Kep;
          */
         public function createController()
         {
-            $directory = \KepPHP\Kep\config\config::getConfig();
+            $directory = new \KepPHP\Kep\config\config();
+            $directory = $directory->getConfig();
             $directory = $directory['directory'];
 
-            $Path = '../'.$directory.'/controllers/'.$this->controller.'.php';
+            $this->path = '../'.$directory.'/controllers/'.$this->controller.'.php';
 
-            $this->checkController($Path);
+            $this->checkController();
 
             return;
         }
@@ -72,7 +80,7 @@ namespace KepPHP\Kep;
          *
          * @param string $Path controller path
          */
-        private function checkController($Path)
+        private function checkController()
         {
             if (!$this->controller) {
                 $this->responseJson('Controller does not exist.'.$this->controller, 404);
@@ -80,7 +88,7 @@ namespace KepPHP\Kep;
                 return;
             }
 
-            $this->checkPatchController($Path);
+            $this->checkPatchController();
         }
 
         /**
@@ -90,15 +98,15 @@ namespace KepPHP\Kep;
          *
          * @param string $Path controller path
          */
-        private function checkPatchController($Path)
+        private function checkPatchController()
         {
-            if (!file_exists($Path)) {
-                $this->responseJson('We did not find the driver: '.$Path, 404);
+            if (!file_exists($this->path)) {
+                $this->responseJson('We did not find the driver: '.$this->path.' '.$this->params, 404);
 
                 return;
             }
 
-            $this->checkClassController($Path);
+            $this->checkClassController();
         }
 
         /**
@@ -108,9 +116,9 @@ namespace KepPHP\Kep;
          *
          * @param string $Path controller path
          */
-        private function checkClassController($Path)
+        private function checkClassController()
         {
-            require_once $Path;
+            require_once $this->path;
 
             if (!class_exists($this->controller)) {
                 $this->responseJson('We did not find the driver class', 404);
