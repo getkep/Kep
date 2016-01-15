@@ -78,7 +78,7 @@ class DB extends config
 
         $start = new Connection();
         $start = $start->mysqli();
-        
+
         $static = $start->mysqli->query(self::$query);
         $result = $start->mysqli->affected_rows;
         $result2 = $start->mysqli->insert_id;
