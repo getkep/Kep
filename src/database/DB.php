@@ -3,7 +3,6 @@
 namespace KepPHP\Kep\database;
 
 use KepPHP\Kep\config\config;
-use KepPHP\Kep\database\Grammar;
 
 class DB extends config
 {
