@@ -13,7 +13,7 @@ class config
      */
     public function getConfig()
     {
-        $Config = $this->loadConfig('../config.php', 'configuration');
+        $Config = self::loadConfig('../config.php', 'configuration');
         $Config = $Config->config();
 
         return $Config;

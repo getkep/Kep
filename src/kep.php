@@ -141,7 +141,7 @@ namespace KepPHP\Kep;
             if (method_exists($this->controller, $this->action)) {
                 $this->controller->{$this->action}($this->parameters);
 
-                return $this;
+                return;
             }
 
             $this->checkActionController();
