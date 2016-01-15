@@ -14,17 +14,53 @@ class Connection
     protected $pdo;
 
     /**
+     * The active MySQLi connection.
+     *
+     * @var MYSQLI
+     */
+    protected $mysqli;
+
+    /**
+     * Configuration.
+     *
+     * @var array
+     */
+    private $config;
+
+    /**
+     * Return connection settings.
+     *
+     * @return config
+     */
+    public function __construct()
+    {
+        $this->config = config::getConfig();
+        $this->config = $config['connections'];
+
+        return $this;
+    }
+
+    /**
      * Create a new database connection instance.
      *
      * @return PDO
      */
-    public function __construct()
+    public function pdo()
     {
-        $config = config::getConfig();
-        $config = $config['connections'];
+        $this->pdo = new PDO($this->config['driver'].':host='.$this->config['host'].';dbname='.$this->config['database'], $this->config['username'], $this->config['password']);
 
-        $this->pdo = new PDO($config['driver'].':host='.$config['host'].';dbname='.$config['database'], $config['username'], $config['password']);
+        return $this;
+    }
 
+    /**
+     * Create a new database connection instance.
+     *
+     * @return MYSQLI
+     */
+    public function mysqli()
+    {
+        $this->mysqli = new \mysqli($this->config['host'], $this->config['username'], $this->config['password'], $this->config['database']);
+    
         return $this;
     }
 }
