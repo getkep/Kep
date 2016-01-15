@@ -17,8 +17,7 @@ class BaseController extends config
      */
     public function response($array)
     {
-        $json = json_encode($array);
-        echo $json;
+        echo json_encode($array);
     }
 
     /**
@@ -30,7 +29,7 @@ class BaseController extends config
      */
     private function setDirectory()
     {
-        $directory = parent::getConfig();
+        $directory = $this->getConfig();
 
         return $directory['directory'];
     }
@@ -44,7 +43,7 @@ class BaseController extends config
      */
     public function seeds($Seed = false)
     {
-        $this->loadClass('../'.$this->setDirectory().'/seeds/'.$Seed.'.php', $Seed);
+        return $this->loadClass("../{$this->setDirectory()}/seeds/{$Seed}.php", $Seed);
     }
 
     /**
@@ -56,7 +55,7 @@ class BaseController extends config
      */
     public function model($Model = false)
     {
-        $this->loadClass('../'.$this->setDirectory().'/models/'.$Model.'.php', $Model);
+        return $this->loadClass("../{$this->setDirectory()}/models/{$Model}.php", $Model);
     }
 
     /**
