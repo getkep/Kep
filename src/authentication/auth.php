@@ -4,9 +4,9 @@ namespace KepPHP\Kep\authentication;
 
 use KepPHP\Kep\database\DB;
 
-    class auth extends DB
-    {
-        /**
+class auth extends DB
+{
+    /**
          * Check user session integrity.
          *
          * @acess public
@@ -46,4 +46,4 @@ use KepPHP\Kep\database\DB;
                 return $auth['result'] = 'disabled';
             }
         }
-    }
+}

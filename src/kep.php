@@ -88,7 +88,7 @@ class kep
      */
     private function checkFolder($directory)
     {
-        if($this->folder == false) {
+        if ($this->folder == false) {
             $this->path = "../{$directory}/controllers/{$this->controller}.php";
         } else {
             $this->path = "../{$directory}/controllers/{$this->folder}/{$this->controller}.php";

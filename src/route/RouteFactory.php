@@ -144,7 +144,7 @@ class RouteFactory extends Group
      */
     private function getFolder($action)
     {
-        if(array_key_exists('folder', $action)) {
+        if (array_key_exists('folder', $action)) {
             return $action['folder'];
         } else {
             return false;
