@@ -41,9 +41,9 @@ class BaseController extends config
      *
      * @param string $Seed File name
      */
-    public function seeds($Seed = false)
+    public function seeds($Seed = false, $Folder = false)
     {
-        return $this->loadClass("../{$this->setDirectory()}/seeds/{$Seed}.php", $Seed);
+        return $this->loadClass($this->checkFolder($Folder, $Seed, 'seeds'), $Seed);
     }
 
     /**
@@ -53,9 +53,27 @@ class BaseController extends config
      *
      * @param string $Model File name
      */
-    public function model($Model = false)
+    public function model($Model = false, $Folder = false)
     {
-        return $this->loadClass("../{$this->setDirectory()}/models/{$Model}.php", $Model);
+        return $this->loadClass($this->checkFolder($Folder, $Model, 'models'), $Model);
+    }
+
+    /**
+     * Checks if the folder is valid.
+     *
+     * @acess private
+     *
+     * @param string $Folder
+     * @param string $File
+     * @param string $Method
+     */
+    private function checkFolder($Folder, $File, $Method)
+    {
+        if ($Folder == false) {
+            return "../{$this->setDirectory()}/{$Method}/{$File}.php";
+        } else {
+            return "../{$this->setDirectory()}/{$Method}/{$Folder}/{$File}.php";
+        }
     }
 
     /**
