@@ -3,235 +3,259 @@
 namespace KepPHP\Kep;
 
 /**
-     * @name Kep Micro-Framework
+ * @name Kep Micro-Framework
+ *
+ * @author Matuzalém S. Teles <matuzalemteles@gmail.com>
+ *
+ * @link http://getkep.com official website of Kep Framework for PHP
+ *
+ * @copyright 2016 Kep Framework
+ */
+
+// ============================================================================ //
+// Class
+// ============================================================================ //
+
+class kep
+{
+    /**
+     * @acess private
      *
-     * @author Matuzalém S. Teles <matuzalemteles@gmail.com>
-     *
-     * @link http://getkep.com official website of Kep Framework for PHP
-     *
-     * @copyright 2016 Kep Framework
+     * @var string Receives the controller name
      */
+    private $controller;
 
-    // ============================================================================ //
-    // Class
-    // ============================================================================ //
+    /**
+     * @acess private
+     *
+     * @var string Receives the function to start
+     */
+    private $action;
 
-    class kep
+    /**
+     * @acess private
+     *
+     * @var array or json 	Parameters to be passed
+     */
+    private $parameters;
+
+    /**
+     * @acess private
+     *
+     * @var string Returns false or true
+     */
+    private $auth;
+
+    /**
+     * @acess private
+     *
+     * @var string Path
+     */
+    private $path;
+
+    /**
+     * @acess private
+     *
+     * @var string Folder
+     */
+    private $folder;
+
+    /**
+     * Mount the controller to perform the actions requested by the route.
+     *
+     * @acess public
+     *
+     * @return action returns the function called by route
+     */
+    public function createController()
     {
-        /**
-         * @acess private
-         *
-         * @var string Receives the controller name
-         */
-        private $controller;
+        $directory = new \KepPHP\Kep\config\config();
+        $directory = $directory->getConfig();
+        $directory = $directory['directory'];
 
-        /**
-         * @acess private
-         *
-         * @var string Receives the function to start
-         */
-        private $action;
+        $this->checkFolder($directory);
+        $this->checkController();
 
-        /**
-         * @acess private
-         *
-         * @var array or json 	Parameters to be passed
-         */
-        private $parameters;
+        return;
+    }
 
-        /**
-         * @acess private
-         *
-         * @var string Returns false or true
-         */
-        private $auth;
+    /**
+     * Checks whether there is even an organization folder, and set path.
+     *
+     * @acess private
+     *
+     * @return $path
+     */
+    private function checkFolder($directory)
+    {
+        if($this->folder == false) {
+            $this->path = "../{$directory}/controllers/{$this->controller}.php";
+        } else {
+            $this->path = "../{$directory}/controllers/{$this->folder}/{$this->controller}.php";
+        }
+    }
 
-        /**
-         * @acess private
-         * 
-         * @var string Path
-         */
-        private $path;
-
-        /**
-         * Mount the controller to perform the actions requested by the route.
-         *
-         * @acess public
-         *
-         * @return action returns the function called by route
-         */
-        public function createController()
-        {
-            $directory = new \KepPHP\Kep\config\config();
-            $directory = $directory->getConfig();
-            $directory = $directory['directory'];
-
-            $this->path = '../'.$directory.'/controllers/'.$this->controller.'.php';
-
-            $this->checkController();
+    /**
+     * Check if the controller parameter exist or is empty.
+     *
+     * @acess private
+     *
+     * @param string $Path controller path
+     */
+    private function checkController()
+    {
+        if (!$this->controller) {
+            $this->responseJson('Controller does not exist.'.$this->controller, 404);
 
             return;
         }
 
-        /**
-         * Check if the controller parameter exist or is empty.
-         *
-         * @acess private
-         *
-         * @param string $Path controller path
-         */
-        private function checkController()
-        {
-            if (!$this->controller) {
-                $this->responseJson('Controller does not exist.'.$this->controller, 404);
+        $this->checkPatchController();
+    }
 
-                return;
-            }
+    /**
+     * Check if the controller of the way there.
+     *
+     * @acess private
+     *
+     * @param string $Path controller path
+     */
+    private function checkPatchController()
+    {
+        if (!file_exists($this->path)) {
+            $this->responseJson('We did not find the driver: '.$this->path.' '.$this->params, 404);
 
-            $this->checkPatchController();
+            return;
         }
 
-        /**
-         * Check if the controller of the way there.
-         *
-         * @acess private
-         *
-         * @param string $Path controller path
-         */
-        private function checkPatchController()
-        {
-            if (!file_exists($this->path)) {
-                $this->responseJson('We did not find the driver: '.$this->path.' '.$this->params, 404);
+        $this->checkClassController();
+    }
 
-                return;
-            }
+    /**
+     * Check if the driver class exists.
+     *
+     * @acess private
+     *
+     * @param string $Path controller path
+     */
+    private function checkClassController()
+    {
+        require_once $this->path;
 
-            $this->checkClassController();
+        if (!class_exists($this->controller)) {
+            $this->responseJson('We did not find the driver class', 404);
+
+            return;
         }
 
-        /**
-         * Check if the driver class exists.
-         *
-         * @acess private
-         *
-         * @param string $Path controller path
-         */
-        private function checkClassController()
-        {
-            require_once $this->path;
+        $this->controller = new $this->controller($this->parameters);
 
-            if (!class_exists($this->controller)) {
-                $this->responseJson('We did not find the driver class', 404);
+        $this->checkMethodController();
+    }
 
-                return;
-            }
+    /**
+     * Check if the method exists.
+     *
+     * @acess private
+     */
+    private function checkMethodController()
+    {
+        if (method_exists($this->controller, $this->action)) {
+            $this->controller->{$this->action}($this->parameters);
 
-            $this->controller = new $this->controller($this->parameters);
-
-            $this->checkMethodController();
+            return;
         }
 
-        /**
-         * Check if the method exists.
-         *
-         * @acess private
-         */
-        private function checkMethodController()
-        {
-            if (method_exists($this->controller, $this->action)) {
-                $this->controller->{$this->action}($this->parameters);
+        $this->checkActionController();
+    }
 
-                return;
-            }
+    /**
+     * Make sure that the class called function exist in the controller.
+     *
+     * @acess private
+     */
+    private function checkActionController()
+    {
+        if (!$this->action && method_exists($this->controlador, 'index')) {
+            $this->controller->index($this->parameters);
 
-            $this->checkActionController();
+            return;
         }
 
-        /**
-         * Make sure that the class called function exist in the controller.
-         *
-         * @acess private
-         */
-        private function checkActionController()
-        {
-            if (!$this->action && method_exists($this->controlador, 'index')) {
-                $this->controller->index($this->parameters);
+        $this->responseJson('We did not find the controller', 404);
+    }
 
-                return;
-            }
+    /**
+     * function to return a message in json.
+     *
+     * @acess private
+     *
+     * @param string $Message error message
+     * @param int    $Code    Error code
+     *
+     * @return string Error message in JSON
+     */
+    private function responseJson($Message, $Code)
+    {
+        $array = [
+            'status'  => 'error',
+            'message' => $Message,
+            'code'    => $Code,
+        ];
 
-            $this->responseJson('We did not find the controller', 404);
-        }
+        echo json_encode($array);
+    }
 
-        /**
-         * function to return a message in json.
-         *
-         * @acess private
-         *
-         * @param string $Message error message
-         * @param int    $Code    Error code
-         *
-         * @return string Error message in JSON
-         */
-        private function responseJson($Message, $Code)
-        {
-            $array = [
-                'status'  => 'error',
-                'message' => $Message,
-                'code'    => $Code,
-            ];
+    /**
+     * checks for user authentication.
+     *
+     * @acess public
+     *
+     * @param string $Name  Username
+     * @param string $Token Token Authentication
+     *
+     * @return int returns true or false
+     */
+    public function isAuth($Name, $Token)
+    {
+        $auth = new authentication\auth();
 
-            echo json_encode($array);
-        }
+        $check = $auth->checkToken($Name, $Token);
 
-        /**
-         * checks for user authentication.
-         *
-         * @acess public
-         *
-         * @param string $Name  Username
-         * @param string $Token Token Authentication
-         *
-         * @return int returns true or false
-         */
-        public function isAuth($Name, $Token)
-        {
-            $auth = new authentication\auth();
-
-            $check = $auth->checkToken($Name, $Token);
-
-            if ($check == 'disabled') {
-                return true;
-            } elseif ($check == 'true') {
-                return true;
-            } elseif ($check == 'false') {
-                return false;
-            }
-        }
-
-        /**
-         * Run function calls the function createController().
-         *
-         * @acess public
-         *
-         * @param string      $controller
-         * @param string      $action
-         * @param array||json $params
-         */
-        public function getController($controller, $action, $params)
-        {
-            $this->controller = $controller;
-            $this->action = $action;
-            $this->parameters = $params;
-
-            if (isset($params->user) && isset($params->token)) {
-                if ($this->isAuth($params->user, $params->token) == true) {
-                    $this->createController();
-                } else {
-                    $this->responseJson('Authentication failed', 404);
-                }
-            } else {
-                $this->createController();
-            }
+        if ($check == 'disabled') {
+            return true;
+        } elseif ($check == 'true') {
+            return true;
+        } elseif ($check == 'false') {
+            return false;
         }
     }
+
+    /**
+     * Run function calls the function createController().
+     *
+     * @acess public
+     *
+     * @param string      $controller
+     * @param string      $action
+     * @param array||json $params
+     * @param string      $folder
+     */
+    public function getController($controller, $action, $params, $folder)
+    {
+        $this->controller = $controller;
+        $this->action = $action;
+        $this->parameters = $params;
+        $this->folder = $folder;
+
+        if (isset($params->user) && isset($params->token)) {
+            if ($this->isAuth($params->user, $params->token) == true) {
+                $this->createController();
+            } else {
+                $this->responseJson('Authentication failed', 404);
+            }
+        } else {
+            $this->createController();
+        }
+    }
+}

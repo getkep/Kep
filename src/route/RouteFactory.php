@@ -8,18 +8,18 @@ class RouteFactory extends Group
 {
     /**
      * Gets past data.
-     * 
+     *
      * @acess private
-     * 
+     *
      * @var array
      */
     private $params;
 
     /**
      * Gets the uri.
-     * 
+     *
      * @acess private
-     * 
+     *
      * @var string
      */
     private $request;
@@ -58,9 +58,9 @@ class RouteFactory extends Group
 
     /**
      * Search parameters in php:/input and stores.
-     * 
+     *
      * @acess private
-     * 
+     *
      * @return $this
      */
     private function getParams()
@@ -73,9 +73,9 @@ class RouteFactory extends Group
 
     /**
      * Identify the routes and calls mount.
-     * 
+     *
      * @acess public
-     * 
+     *
      * @return $this
      */
     public function addRoute($HTTP, $endpoint, $action)
@@ -91,9 +91,9 @@ class RouteFactory extends Group
 
     /**
      * Riding the routes POST, PUT and DELETE.
-     * 
+     *
      * @acess private
-     * 
+     *
      * @return $this
      */
     private function mountRoute($endpoint, $action)
@@ -105,9 +105,9 @@ class RouteFactory extends Group
 
     /**
      * Riding the route GET.
-     * 
+     *
      * @acess private
-     * 
+     *
      * @return $this
      */
     private function mountGet($endpoint, $action)
@@ -119,18 +119,16 @@ class RouteFactory extends Group
 
     /**
      * Checks if it is a closure and separate information to call the controller and action.
-     * 
+     *
      * @acess private
-     * 
+     *
      * @return $this
      */
     private function wrapRoute($action)
     {
         if (is_array($action)) {
             if (array_key_exists('uses', $action)) {
-                $uses = explode('@', $action['uses']);
-
-                $this->callController($uses);
+                $this->callController(explode('@', $action['uses']), $this->getFolder($action));
             }
         } else {
             $action();
@@ -138,10 +136,26 @@ class RouteFactory extends Group
     }
 
     /**
-     * Creation syntax of get the endpoint.
-     * 
+     * Check whether there is any folder inside the controller file.
+     *
      * @acess private
-     * 
+     *
+     * @return string
+     */
+    private function getFolder($action)
+    {
+        if(array_key_exists('folder', $action)) {
+            return $action['folder'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Creation syntax of get the endpoint.
+     *
+     * @acess private
+     *
      * @return $this
      */
     private function wrapGet($endpoint, $action)
@@ -166,9 +180,9 @@ class RouteFactory extends Group
 
     /**
      * Merges the endpoint of the index and received by getRequest.
-     * 
+     *
      * @acess private
-     * 
+     *
      * @return string
      */
     private function mergeEndpoint($array, $arrayRequest)
@@ -194,15 +208,15 @@ class RouteFactory extends Group
 
     /**
      * Passes the parameters to create the controller.
-     * 
+     *
      * @acess private
-     * 
+     *
      * @return $this
      */
-    private function callController($uses)
+    private function callController($uses, $folder)
     {
         $ctrl = new Controller();
 
-        return $ctrl->getController($uses[0], $uses[1], $this->params);
+        return $ctrl->getController($uses[0], $uses[1], $this->params, $folder);
     }
 }
