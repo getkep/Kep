@@ -9,7 +9,7 @@ class DB extends config
 {
     /**
      * Gets ready query.
-     * 
+     *
      * @acess private
      */
     private static $query;

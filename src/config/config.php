@@ -36,7 +36,5 @@ class config
 
             return;
         }
-
-        return;
     }
 }

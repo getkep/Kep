@@ -16,7 +16,7 @@ class Builder
     /**
      * @acess private
      *
-     * @var string or array 
+     * @var string or array
      */
     private $selects;
 
