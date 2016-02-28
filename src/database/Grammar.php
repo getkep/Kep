@@ -6,7 +6,7 @@ class Grammar
 {
     /**
      * Wrap syntax of the select.
-     * 
+     *
      * @acess public
      */
     public function wrapSelect($Query, $parameters, $Order = null)
@@ -34,13 +34,11 @@ class Grammar
 
             return $string;
         }
-
-        return;
     }
 
     /**
      * Wrap syntax of the update.
-     * 
+     *
      * @acess public
      */
     public function wrapUpdate($Query, $parameters)
@@ -62,13 +60,11 @@ class Grammar
 
             return $string;
         }
-
-        return;
     }
 
     /**
      * Wrap syntax of the insert.
-     * 
+     *
      * @acess public
      */
     public function wrapInsert($Query, $parameters)
@@ -94,13 +90,11 @@ class Grammar
 
             return $string;
         }
-
-        return;
     }
 
     /**
      * Wrap syntax of the delete.
-     * 
+     *
      * @acess public
      */
     public function wrapDelete($Query, $parameters)
@@ -122,7 +116,5 @@ class Grammar
 
             return $string;
         }
-
-        return;
     }
 }

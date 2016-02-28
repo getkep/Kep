@@ -85,8 +85,6 @@ class RouteFactory extends Group
         } elseif ($HTTP == $this->verbs[1] or $HTTP == $this->verbs[2] or $HTTP == $this->verbs[3]) {
             $this->mountRoute($endpoint, $action);
         }
-
-        return;
     }
 
     /**
@@ -174,8 +172,6 @@ class RouteFactory extends Group
                 return;
             }
         }
-
-        return;
     }
 
     /**

@@ -75,8 +75,6 @@ class kep
 
         $this->checkFolder($directory);
         $this->checkController();
-
-        return;
     }
 
     /**
