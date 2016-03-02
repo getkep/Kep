@@ -199,7 +199,24 @@ class RouteFactory extends Group
 
         $replace = str_replace($uri1, $uri3, $array);
 
+        $this->paramsGet($params);
+
         return implode($replace, '/');
+    }
+
+    /**
+     * Send params for get.
+     *
+     * @acess private
+     *
+     * @return json
+     */
+    private function paramsGet($params)
+    {
+        $this->params = json_encode($params);
+        $this->params = json_decode($this->params);
+
+        return $this;
     }
 
     /**
