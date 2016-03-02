@@ -55,7 +55,7 @@ class Builder
      *
      * @return array
      */
-    public function select($select = "*")
+    public function select($select = '*')
     {
         $this->create = "SELECT {$select} FROM {$this->table}";
         $this->wrapSelect();
@@ -70,7 +70,7 @@ class Builder
      *
      * @return array
      */
-    public function count($count = "*")
+    public function count($count = '*')
     {
         $this->create = "SELECT COUNT({$count}) As Result FROM {$this->table}";
         $this->wrapSelect();
@@ -195,7 +195,7 @@ class Builder
     }
 
     /**
-     * Responsavel por delimitar os dados;
+     * Responsavel por delimitar os dados;.
      *
      * @acess public
      *
@@ -247,7 +247,7 @@ class Builder
      */
     private function connect()
     {
-        $this->conn = new Connection;
+        $this->conn = new Connection();
         $this->conn = $this->conn->mysqli();
     }
 

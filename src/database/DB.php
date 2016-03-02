@@ -21,7 +21,8 @@ class DB extends config
      *
      * @return KepPHP\Kep\database\Query\Builder|static
      */
-    public function table($table){
+    public function table($table)
+    {
         $Builder = new Builder();
 
         $Builder->index($table);
