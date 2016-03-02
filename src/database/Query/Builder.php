@@ -16,13 +16,6 @@ class Builder
     /**
      * @acess private
      *
-     * @var string or array
-     */
-    private $selects;
-
-    /**
-     * @acess private
-     *
      * @var string
      */
     private $create;
@@ -34,15 +27,180 @@ class Builder
      */
     private $conn;
 
-    public function index($table, $selects = '*')
+    /**
+     * @acess private
+     *
+     * @var array
+     */
+    private $return;
+
+    /**
+     * Responsavel por guarda a nome da tabela desejada a efetuar a ação futura.
+     *
+     * @acess public
+     *
+     * @return $this
+     */
+    public function index($table)
     {
-        $this->conn = new Connection();
         $this->table = (string) $table;
-        $this->selects = (string) $selects;
 
         return $this;
     }
 
+    /**
+     * Seleciona as informações da tabela desejada de acordo o informado.
+     *
+     * @acess public
+     *
+     * @return array
+     */
+    public function select($select = "*")
+    {
+        $this->create = "SELECT {$select} FROM {$this->table}";
+        $this->wrapSelect();
+
+        return $this->return;
+    }
+
+    /**
+     * COUNT seleciona informações da tabela e mostra o resultado.
+     *
+     * @acess public
+     *
+     * @return array
+     */
+    public function count($count = "*")
+    {
+        $this->create = "SELECT COUNT({$count}) As Result FROM {$this->table}";
+        $this->wrapSelect();
+
+        return $this->return;
+    }
+
+    /**
+     * Responsavel por embrulhar as informações para serem retorandas.
+     *
+     * @acess private
+     *
+     * @return $this
+     */
+    private function wrapSelect()
+    {
+        $this->execute();
+        $this->return[] = ['fetch_array' => $this->return->fetch_array(MYSQLI_ASSOC)];
+        $this->return[] = ['num_rows' => $this->conn->mysqli->num_rows];
+        $this->disconnect();
+
+        return $this;
+    }
+
+    /**
+     * Realiza o update na tabela.
+     *
+     * @acess public
+     *
+     * @return array
+     */
+    public function update(array $set)
+    {
+        $Places = implode(' = , ', array_keys($set));
+        $Fields = implode(' = , ', array_values($set)).' = ';
+
+        $this->create = "UPDATE {$this->table} SET {$Fields}{$Places}";
+
+        return $this->create;
+    }
+
+    /**
+     * Responsavel por embrulhar as informações para serem retorandas.
+     *
+     * @acess private
+     *
+     * @return array
+     */
+    private function wrapUpdate()
+    {
+        $this->execute();
+        $this->return[] = ['affected_rows' => $this->conn->mysqli->affected_rows];
+        $this->disconnect();
+
+        return $this;
+    }
+
+    /**
+     * Insere dados na tabela.
+     *
+     * @acss public
+     *
+     * @return array
+     */
+    public function insert(array $values)
+    {
+        $Places = implode(', ', array_keys($values));
+        $Fields = "'".implode("', '", array_values($values))."'";
+
+        $this->create = "INSERT INTO {$this->table}({$Places}) VALUES({$Fields})";
+        $this->wrapInsert();
+
+        return $this->return;
+    }
+
+    /**
+     * Responsavel por embrulhar as informações para serem retorandas.
+     *
+     * @acess private
+     *
+     * @return $this
+     */
+    private function wrapInsert()
+    {
+        $this->execute();
+        $this->return[] = ['insert_id' => $this->conn->mysqli->insert_id];
+        $this->return[] = ['affected_rows' => $this->conn->mysqli->affected_rows];
+        $this->disconnect();
+
+        return $this;
+    }
+
+    /**
+     * Deleta a tabela desejada.
+     *
+     * @acess public
+     *
+     * @return array
+     */
+    public function delete()
+    {
+        $this->create = "DELETE FROM {$this->table}";
+        $this->wrapDelete();
+
+        return $this->return;
+    }
+
+    /**
+     * Responsavel por embrulhar as informações para serem retorandas.
+     *
+     * @acess private
+     *
+     * @return $this
+     */
+    private function wrapDelete()
+    {
+        $this->execute();
+        $this->return[] = ['affected_rows' => $this->conn->mysqli->affected_rows];
+        $this->disconnect();
+
+        return $this;
+    }
+
+    /**
+     * Responsavel por delimitar os dados;
+     *
+     * @acess public
+     *
+     * @return $this
+     */
     public function where(array $where = null)
     {
         $Fileds = implode(' = :, ', array_keys($where)).' = :';
@@ -52,6 +210,13 @@ class Builder
         return $this;
     }
 
+    /**
+     * Responsavel por limitar a quantidade de dados.
+     *
+     * @acess public
+     *
+     * @return $this
+     */
     public function limit($limit = null)
     {
         $this->create = $this->create." LIMIT {$limit} ";
@@ -59,6 +224,13 @@ class Builder
         return $this;
     }
 
+    /**
+     * Responsavel por ordenar os dados recebidos.
+     *
+     * @acess public
+     *
+     * @return $this
+     */
     public function order($order = null)
     {
         $this->create = $this->create." ORDER BY {$order} ";
@@ -66,56 +238,43 @@ class Builder
         return $this;
     }
 
-    public function set(array $set)
-    {
-        $Fileds = implode(' = :, ', array_keys($set)).' = :';
-        $Places = implode(' = , ', array_keys($set));
-        $this->create = $this->create." {$Fileds}{$Places}";
-
-        return $this;
-    }
-
-    public function get()
-    {
-        return $this->create;
-    }
-
+    /**
+     * Efetua a conexão com banco de dados.
+     *
+     * @acess private
+     *
+     * @return array
+     */
     private function connect()
     {
-        // $this->conn = parent::conn();
-        // $this->create = $this->conn->prepare($this->create);
+        $this->conn = new Connection;
+        $this->conn = $this->conn->mysqli();
     }
 
-    public function selects()
+    /**
+     * Executa a query.
+     *
+     * @acess private
+     *
+     * @return array
+     */
+    private function execute()
     {
-        $this->create = "SELECT {$this->selects} FROM {$this->table}";
+        $this->connect();
+        $this->return = $this->conn->mysqli->query($this->create);
 
         return $this;
     }
 
-    public function updates()
+    /**
+     * Fecha conexão com o banco de dados.
+     *
+     * @acess private
+     *
+     * @return void
+     */
+    private function disconnect()
     {
-        $this->create = "UPDATE {$this->table} SET";
-
-        return $this;
-    }
-
-    public function deletes()
-    {
-        $this->create = "DELETE FROM {$this->table} ";
-
-        return $this;
-    }
-
-    public function inserts()
-    {
-        $this->create = "INSERT INTO {$this->table}";
-
-        return $this;
-    }
-
-    private function syntax()
-    {
-        $this->create = "SELECT {$this->selects} FROM {$this->table}";
+        return $this->conn->mysqli->close();
     }
 }

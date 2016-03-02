@@ -15,6 +15,21 @@ class DB extends config
     private static $query;
 
     /**
+     * Query Builder v2.
+     *
+     * @acess public
+     *
+     * @return KepPHP\Kep\database\Query\Builder|static
+     */
+    public function table($table){
+        $Builder = new Builder();
+
+        $Builder->index($table);
+
+        return $Builder;
+    }
+
+    /**
      * Query Builder - data selection in the database.
      *
      * @acess public
