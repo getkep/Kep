@@ -2,7 +2,9 @@
 
 namespace KepPHP\Kep\model;
 
-class BaseModel
+use KepPHP\Kep\database\DB;
+
+class BaseModel extends DB
 {
     // Functions to be worked
 }
