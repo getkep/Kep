@@ -18,7 +18,7 @@ class Connection
      *
      * @var MYSQLI
      */
-    public $mysqli;
+    private $mysql;
 
     /**
      * Configuration.
@@ -59,8 +59,8 @@ class Connection
      */
     public function mysqli()
     {
-        $this->mysqli = new \mysqli($this->config['host'], $this->config['username'], $this->config['password'], $this->config['database']);
+        $this->mysql = new \mysqli($this->config['host'], $this->config['username'], $this->config['password'], $this->config['database']);
 
-        return $this;
+        return $this->mysql;
     }
 }
