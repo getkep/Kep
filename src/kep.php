@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * @name Kep Micro-Framework
  *
  * @author Matuzalém S. Teles <matuzalemteles@gmail.com>
