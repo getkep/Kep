@@ -2,7 +2,7 @@
 
 namespace KepPHP\Kep\route;
 
-use KepPHP\Kep\kep as Controller;
+use KepPHP\Kep\controller\CallController as Controller;
 
 class RouteFactory extends Group
 {

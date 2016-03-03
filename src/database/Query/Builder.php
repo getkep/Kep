@@ -89,7 +89,7 @@ class Builder
     {
         $this->execute();
         $this->return[] = ['fetch_array' => $this->return->fetch_array(MYSQLI_ASSOC)];
-        $this->return[] = ['num_rows' => $this->conn->mysqli->num_rows];
+        $this->return[] = ['num_rows' => $this->conn->num_rows];
         $this->disconnect();
 
         return $this;
@@ -122,7 +122,7 @@ class Builder
     private function wrapUpdate()
     {
         $this->execute();
-        $this->return[] = ['affected_rows' => $this->conn->mysqli->affected_rows];
+        $this->return[] = ['affected_rows' => $this->conn->affected_rows];
         $this->disconnect();
 
         return $this;
@@ -156,8 +156,8 @@ class Builder
     private function wrapInsert()
     {
         $this->execute();
-        $this->return[] = ['insert_id' => $this->conn->mysqli->insert_id];
-        $this->return[] = ['affected_rows' => $this->conn->mysqli->affected_rows];
+        $this->return[] = ['insert_id' => $this->conn->insert_id];
+        $this->return[] = ['affected_rows' => $this->conn->affected_rows];
         $this->disconnect();
 
         return $this;
@@ -188,7 +188,7 @@ class Builder
     private function wrapDelete()
     {
         $this->execute();
-        $this->return[] = ['affected_rows' => $this->conn->mysqli->affected_rows];
+        $this->return[] = ['affected_rows' => $this->conn->affected_rows];
         $this->disconnect();
 
         return $this;
@@ -261,7 +261,7 @@ class Builder
     private function execute()
     {
         $this->connect();
-        $this->return = $this->conn->mysqli->query($this->create);
+        $this->return = $this->conn->query($this->create);
 
         return $this;
     }
@@ -275,6 +275,6 @@ class Builder
      */
     private function disconnect()
     {
-        return $this->conn->mysqli->close();
+        return $this->conn->close();
     }
 }
