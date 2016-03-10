@@ -49,6 +49,7 @@ class RouteFactory extends Group
     {
         $this->getParams();
         $this->getRequest();
+        $this->getMethod();
     }
 
     /**
