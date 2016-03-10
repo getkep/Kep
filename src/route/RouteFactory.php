@@ -25,11 +25,20 @@ class RouteFactory extends Group
     private $request;
 
     /**
+     * Receives method.
+     *
+     * @acess private
+     *
+     * @var string
+     */
+    private $method;
+
+    /**
      * Verbs supported by the route.
      *
      * @var array
      */
-    private $verbs = ['GET', 'POST', 'PUT', 'DELETE'];
+    private $verbs = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'];
 
     /**
      * Call the parameters and request.
@@ -71,18 +80,39 @@ class RouteFactory extends Group
         return $this;
     }
 
+    public function getMethod()
+    {
+        $this->method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : null;
+
+        return $this;
+    }
+
     /**
-     * Identify the routes and calls mount.
+     * Check the method used by the header with the configured API.
      *
      * @acess public
      *
      * @return $this
      */
-    public function addRoute($HTTP, $endpoint, $action)
+    public function addRoute($http, $endpoint, $action)
     {
-        if ($HTTP == $this->verbs[0]) {
+        if ($this->method == $http) {
+            $this->checkMethod($http, $endpoint, $action);
+        }
+    }
+
+    /**
+     * Identify the routes and calls mount.
+     *
+     * @acess private
+     *
+     * @return $this
+     */
+    private function checkMethod($http, $endpoint, $action)
+    {
+        if ($http == $this->verbs[0]) {
             $this->mountGet($endpoint, $action);
-        } elseif ($HTTP == $this->verbs[1] or $HTTP == $this->verbs[2] or $HTTP == $this->verbs[3]) {
+        } elseif ($http == $this->verbs[1] or $http == $this->verbs[2] or $http == $this->verbs[3] or $http == $this->verbs[4]) {
             $this->mountRoute($endpoint, $action);
         }
     }

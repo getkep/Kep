@@ -53,4 +53,16 @@ class Route extends Group
 
         return $Factory->addRoute('DELETE', $endpoint, $function);
     }
+
+    /**
+     * PATCH interprets the communication and calls the controller if there.
+     *
+     * @acess public
+     */
+    public static function patch($endpoint, $function)
+    {
+        $Factory = new Factory();
+
+        return $Factory->addRoute('PATCH', $endpoint, $function);
+    }
 }
