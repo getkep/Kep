@@ -23,4 +23,9 @@ class header
     {
         header("Access-Control-Allow-Headers: {$content}");
     }
+
+    public static function accessMethods($methods)
+    {
+        header("Access-Control-Allow-Methods: {$methods}");
+    }
 }
