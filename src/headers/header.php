@@ -1,6 +1,6 @@
 <?php
 
-namespace KepPHP\Kep\headers;
+namespace GetKep\Kep\headers;
 
 class header
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace KepPHP\Kep\authentication;
+namespace GetKep\Kep\authentication;
 
-use KepPHP\Kep\database\DB;
+use GetKep\Kep\database\DB;
 
 class auth extends DB
 {

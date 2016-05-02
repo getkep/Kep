@@ -1,6 +1,6 @@
 <?php
 
-    use KepPHP\Kep\route\Route;
+    use GetKep\Kep\route\Route;
 
     class RouteTest extends PHPUnit_Framework_TestCase
     {
