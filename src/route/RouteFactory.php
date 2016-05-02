@@ -1,8 +1,8 @@
 <?php
 
-namespace KepPHP\Kep\route;
+namespace GetKep\Kep\route;
 
-use KepPHP\Kep\controller\CallController as Controller;
+use GetKep\Kep\controller\CallController as Controller;
 
 class RouteFactory extends Group
 {

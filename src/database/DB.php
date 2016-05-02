@@ -1,9 +1,9 @@
 <?php
 
-namespace KepPHP\Kep\database;
+namespace GetKep\Kep\database;
 
-use KepPHP\Kep\config\config;
-use KepPHP\Kep\database\Query\Builder;
+use GetKep\Kep\config\config;
+use GetKep\Kep\database\Query\Builder;
 
 class DB extends config
 {
@@ -19,7 +19,7 @@ class DB extends config
      *
      * @acess public
      *
-     * @return KepPHP\Kep\database\Query\Builder|static
+     * @return GetKep\Kep\database\Query\Builder|static
      */
     public function table($table)
     {

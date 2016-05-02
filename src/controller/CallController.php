@@ -1,9 +1,9 @@
 <?php
 
-namespace KepPHP\Kep\controller;
+namespace GetKep\Kep\controller;
 
-use KepPHP\Kep\authentication\auth;
-use KepPHP\Kep\config\config;
+use GetKep\Kep\authentication\auth;
+use GetKep\Kep\config\config;
 
 class CallController extends config
 {

@@ -1,6 +1,6 @@
 <?php
 
-    use KepPHP\Kep\controller\BaseController;
+    use GetKep\Kep\controller\BaseController;
 
     class myController extends BaseController
     {

@@ -1,10 +1,10 @@
 ## Kep PHP Framework
 [![StyleCI](https://styleci.io/repos/41437263/shield)](https://styleci.io/repos/41437263)
-[![Build Status](https://travis-ci.org/KepPHP/Kep.svg?branch=master)](https://travis-ci.org/KepPHP/Kep)
-[![Total Downloads](https://poser.pugx.org/kepphp/kep/downloads)](https://packagist.org/packages/kepphp/kep)
-[![Latest Stable Version](https://poser.pugx.org/kepphp/kep/v/stable)](https://packagist.org/packages/kepphp/kep)
-[![Latest Unstable Version](https://poser.pugx.org/kepphp/kep/v/unstable)](https://packagist.org/packages/kepphp/kep)
-[![License](https://poser.pugx.org/kepphp/kep/license)](https://packagist.org/packages/kepphp/kep)
+[![Build Status](https://travis-ci.org/getkep/Kep.svg?branch=master)](https://travis-ci.org/getkep/Kep)
+[![Total Downloads](https://poser.pugx.org/getkep/kep/downloads)](https://packagist.org/packages/getkep/kep)
+[![Latest Stable Version](https://poser.pugx.org/getkep/kep/v/stable)](https://packagist.org/packages/getkep/kep)
+[![Latest Unstable Version](https://poser.pugx.org/getkep/kep/v/unstable)](https://packagist.org/packages/getkep/kep)
+[![License](https://poser.pugx.org/getkep/kep/license)](https://packagist.org/packages/getkep/kep)
 
 Pretendemos levar o Kep Framework para todos e mostrar de forma clara para iniciantes, como é o desenvolvimento de uma framework e como podem aumentar a produtividade com Kep.
 
@@ -14,7 +14,7 @@ Kep Framework foi iniciado por um desenvolvedor, com a mesma curiosidade de apre
 
 Instalação pelo composer, certifique-se de ter Composer instalado em sua máquina.
 ```
-	composer require kepphp/kep *
+	composer require getkep/kep *
 ```
 
 ## Documentação Oficial
