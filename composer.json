@@ -1,13 +1,13 @@
 {
-    "name": "kepphp/kep",
+    "name": "getkep/kep",
     "type": "project",
     "description": "Kep Framework for PHP",
     "keywords": ["kep","framework"],
     "homepage": "http://getkep.com",
     "license": "MIT",
 	"support": {
-        "issues": "https://github.com/kepphp/kep/issues",
-        "source": "https://github.com/kepphp/kep"
+        "issues": "https://github.com/getkep/kep/issues",
+        "source": "https://github.com/getkep/kep"
     },
     "authors": [
         {
@@ -24,7 +24,7 @@
     },
     "autoload": {
         "psr-4": {
-            "KepPHP\\Kep\\": "src"
+            "GetKep\\Kep\\": "src"
         }
     },
     "minimum-stability": "stable"
