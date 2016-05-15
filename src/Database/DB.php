@@ -1,11 +1,11 @@
 <?php
 
-namespace GetKep\Kep\database;
+namespace GetKep\Kep\Database;
 
-use GetKep\Kep\config\config;
-use GetKep\Kep\database\Query\Builder;
+use GetKep\Kep\Config\Config;
+use GetKep\Kep\Database\Query\Builder;
 
-class DB extends config
+class DB extends Config
 {
     /**
      * Gets ready query.
@@ -37,9 +37,9 @@ class DB extends config
      *
      * @return array
      */
-    public static function select($Query, $parameters, $Order = null)
+    public static function select($query, $parameters, $order = null)
     {
-        self::$query = Grammar::wrapSelect($Query, $parameters, $Order);
+        self::$query = Grammar::wrapSelect($query, $parameters, $order);
 
         $start = new Connection();
         $start = $start->mysqli();
@@ -68,9 +68,9 @@ class DB extends config
      *
      * @return array
      */
-    public static function update($Query, $parameters)
+    public static function update($query, $parameters)
     {
-        self::$query = Grammar::wrapUpdate($Query, $parameters);
+        self::$query = Grammar::wrapUpdate($query, $parameters);
 
         $start = new Connection();
         $start = $start->mysqli();
@@ -88,9 +88,9 @@ class DB extends config
      *
      * @return array
      */
-    public static function insert($Query, $parameters)
+    public static function insert($query, $parameters)
     {
-        self::$query = Grammar::wrapInsert($Query, $parameters);
+        self::$query = Grammar::wrapInsert($query, $parameters);
 
         $start = new Connection();
         $start = $start->mysqli();
@@ -112,9 +112,9 @@ class DB extends config
      *
      * @return array
      */
-    public static function delete($Query, $parameters)
+    public static function delete($query, $parameters)
     {
-        self::$query = Grammar::wrapDelete($Query, $parameters);
+        self::$query = Grammar::wrapDelete($query, $parameters);
 
         $start = new Connection();
         $start = $start->mysqli();

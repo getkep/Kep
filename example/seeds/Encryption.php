@@ -1,6 +1,6 @@
 <?php
 
-    class encryption
+    class Encryption
     {
         public function sha512($message)
         {

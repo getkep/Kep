@@ -1,8 +1,8 @@
 <?php
 
-    use GetKep\Kep\controller\BaseController;
+    use GetKep\Kep\Controller\BaseController;
 
-    class myController extends BaseController
+    class MyController extends BaseController
     {
         private $load;
         private $params;
@@ -11,7 +11,7 @@
         public function __construct($parameters)
         {
             $this->load = $this->LoadModel('myModel');
-            $this->seed = $this->seeds('encryption');
+            $this->seed = $this->seeds('Encryption');
             $this->params = $parameters;
         }
 

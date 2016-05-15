@@ -1,11 +1,11 @@
 <?php
 
-namespace GetKep\Kep\controller;
+namespace GetKep\Kep\Controller;
 
-use GetKep\Kep\authentication\auth;
-use GetKep\Kep\config\config;
+use GetKep\Kep\Authentication\Auth;
+use GetKep\Kep\Config\Config;
 
-class CallController extends config
+class CallController extends Config
 {
     /**
      * @acess private
@@ -176,17 +176,17 @@ class CallController extends config
      *
      * @acess private
      *
-     * @param string $Message error message
-     * @param int    $Code    Error code
+     * @param string $message error message
+     * @param int    $code    Error code
      *
      * @return string Error message in JSON
      */
-    private function responseJson($Message, $Code)
+    private function responseJson($message, $code)
     {
         $array = [
             'status'  => 'error',
-            'message' => $Message,
-            'code'    => $Code,
+            'message' => $message,
+            'code'    => $code,
         ];
 
         echo json_encode($array);
@@ -197,16 +197,16 @@ class CallController extends config
      *
      * @acess public
      *
-     * @param string $Name  Username
-     * @param string $Token Token Authentication
+     * @param string $name  Username
+     * @param string $token Token Authentication
      *
      * @return int returns true or false
      */
-    public function isAuth($Name, $Token)
+    public function isAuth($name, $token)
     {
-        $auth = new auth();
+        $auth = new Auth();
 
-        $check = $auth->checkToken($Name, $Token);
+        $check = $auth->checkToken($name, $token);
 
         if ($check == 'disabled') {
             return true;
