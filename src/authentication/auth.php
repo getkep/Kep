@@ -1,10 +1,10 @@
 <?php
 
-namespace GetKep\Kep\authentication;
+namespace GetKep\Kep\Authentication;
 
-use GetKep\Kep\database\DB;
+use GetKep\Kep\Database\DB;
 
-class auth extends DB
+class Auth extends DB
 {
     /**
          * Check user session integrity.

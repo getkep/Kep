@@ -1,10 +1,10 @@
 <?php
 
-namespace GetKep\Kep\controller;
+namespace GetKep\Kep\Controller;
 
-use GetKep\Kep\config\config;
+use GetKep\Kep\Config\Config;
 
-class BaseController extends config
+class BaseController extends Config
 {
     /**
      * Convert an array in JSON.
@@ -39,11 +39,11 @@ class BaseController extends config
      *
      * @acess public
      *
-     * @param string $Seed File name
+     * @param string $seed File name
      */
-    public function seeds($Seed = false, $Folder = false)
+    public function seeds($seed = null, $folder = null)
     {
-        return $this->loadClass($this->checkFolder($Folder, $Seed, 'seeds'), $Seed);
+        return $this->loadClass($this->checkFolder($folder, $seed, 'seeds'), $seed);
     }
 
     /**
@@ -51,11 +51,11 @@ class BaseController extends config
      *
      * @acess public
      *
-     * @param string $Model File name
+     * @param string $model File name
      */
-    public function model($Model = false, $Folder = false)
+    public function model($model = null, $folder = null)
     {
-        return $this->loadClass($this->checkFolder($Folder, $Model, 'models'), $Model);
+        return $this->loadClass($this->checkFolder($folder, $model, 'models'), $model);
     }
 
     /**
@@ -63,16 +63,16 @@ class BaseController extends config
      *
      * @acess private
      *
-     * @param string $Folder
-     * @param string $File
-     * @param string $Method
+     * @param string $folder
+     * @param string $file
+     * @param string $method
      */
-    private function checkFolder($Folder, $File, $Method)
+    private function checkFolder($folder, $file, $method)
     {
-        if ($Folder == false) {
-            return "../{$this->setDirectory()}/{$Method}/{$File}.php";
+        if ($folder == null) {
+            return "../{$this->setDirectory()}/{$method}/{$file}.php";
         } else {
-            return "../{$this->setDirectory()}/{$Method}/{$Folder}/{$File}.php";
+            return "../{$this->setDirectory()}/{$method}/{$folder}/{$file}.php";
         }
     }
 
@@ -81,15 +81,15 @@ class BaseController extends config
      *
      * @acess private
      *
-     * @param string $Path
-     * @param string $Class
+     * @param string $path
+     * @param string $class
      */
-    private function loadClass($Path, $Class)
+    private function loadClass($path, $class)
     {
-        if (file_exists($Path)) {
-            require_once $Path;
-            if (class_exists($Class)) {
-                return new $Class();
+        if (file_exists($path)) {
+            require_once $path;
+            if (class_exists($class)) {
+                return new $class();
             }
 
             return;

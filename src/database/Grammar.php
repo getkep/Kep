@@ -1,6 +1,6 @@
 <?php
 
-namespace GetKep\Kep\database;
+namespace GetKep\Kep\Database;
 
 class Grammar
 {
@@ -9,25 +9,25 @@ class Grammar
      *
      * @acess public
      */
-    public function wrapSelect($Query, $parameters, $Order = null)
+    public function wrapSelect($query, $parameters, $order = null)
     {
-        if (strpos($Query, '?')) {
-            $array = explode('?', $Query);
+        if (strpos($query, '?')) {
+            $array = explode('?', $query);
             $array = array_filter($array);
             $count = count($parameters);
-            $n = 0;
+            $cont = 0;
             foreach ($array as $add) {
-                if (is_numeric($parameters[$n])) {
-                    $array2[] = $add.$parameters[$n];
+                if (is_numeric($parameters[$cont])) {
+                    $array2[] = $add.$parameters[$cont];
                 } else {
-                    $array2[] = $add."'".$parameters[$n]."'";
+                    $array2[] = $add."'".$parameters[$cont]."'";
                 }
 
-                $n++;
+                $cont++;
             }
 
-            if ($Order !== null) {
-                $array2[] = ' '.$Order;
+            if ($order !== null) {
+                $array2[] = ' '.$order;
             }
 
             $string = implode($array2, '');
@@ -41,19 +41,19 @@ class Grammar
      *
      * @acess public
      */
-    public function wrapUpdate($Query, $parameters)
+    public function wrapUpdate($query, $parameters)
     {
-        if (strpos($Query, '?')) {
-            $array = explode('?', $Query);
+        if (strpos($query, '?')) {
+            $array = explode('?', $query);
             $array = array_filter($array);
-            $n = 0;
+            $cont = 0;
             foreach ($array as $add) {
-                if (is_numeric($parameters[$n])) {
-                    $array2[] = $add.$parameters[$n];
+                if (is_numeric($parameters[$cont])) {
+                    $array2[] = $add.$parameters[$cont];
                 } else {
-                    $array2[] = $add."'".$parameters[$n]."'";
+                    $array2[] = $add."'".$parameters[$cont]."'";
                 }
-                $n++;
+                $cont++;
             }
 
             $string = implode($array2, '');
@@ -67,23 +67,23 @@ class Grammar
      *
      * @acess public
      */
-    public function wrapInsert($Query, $parameters)
+    public function wrapInsert($query, $parameters)
     {
-        if (strpos($Query, '?')) {
-            $array = explode('?', $Query);
+        if (strpos($query, '?')) {
+            $array = explode('?', $query);
             $array = array_filter($array);
-            $n = 0;
+            $cont = 0;
             foreach ($array as $add) {
                 if ($add == end($array)) {
                     $array2[] = $add;
                 } else {
-                    if (is_numeric($parameters[$n])) {
-                        $array2[] = $add.$parameters[$n];
+                    if (is_numeric($parameters[$cont])) {
+                        $array2[] = $add.$parameters[$cont];
                     } else {
-                        $array2[] = $add."'".$parameters[$n]."'";
+                        $array2[] = $add."'".$parameters[$cont]."'";
                     }
                 }
-                $n++;
+                $cont++;
             }
 
             $string = implode($array2, '');
@@ -97,19 +97,19 @@ class Grammar
      *
      * @acess public
      */
-    public function wrapDelete($Query, $parameters)
+    public function wrapDelete($query, $parameters)
     {
-        if (strpos($Query, '?')) {
-            $array = explode('?', $Query);
+        if (strpos($query, '?')) {
+            $array = explode('?', $query);
             $array = array_filter($array);
-            $n = 0;
+            $cont = 0;
             foreach ($array as $add) {
-                if (is_numeric($parameters[$n])) {
-                    $array2[] = $add.$parameters[$n];
+                if (is_numeric($parameters[$cont])) {
+                    $array2[] = $add.$parameters[$cont];
                 } else {
-                    $array2[] = $add."'".$parameters[$n]."'";
+                    $array2[] = $add."'".$parameters[$cont]."'";
                 }
-                $n++;
+                $cont++;
             }
 
             $string = implode($array2, '');

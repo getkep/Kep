@@ -1,8 +1,8 @@
 <?php
 
-namespace GetKep\Kep\route;
+namespace GetKep\Kep\Routing;
 
-use GetKep\Kep\controller\CallController as Controller;
+use GetKep\Kep\Controller\CallController as Controller;
 
 class RouteFactory extends Group
 {
@@ -214,18 +214,18 @@ class RouteFactory extends Group
      */
     private function mergeEndpoint($array, $arrayRequest)
     {
-        $n = 1;
+        $cont = 1;
         foreach ($array as $add) {
             $var = substr($add, 0, 1);
             if ($var == ':') {
-                $params[str_replace(':', '', $add)] = $arrayRequest[$n];
+                $params[str_replace(':', '', $add)] = $arrayRequest[$cont];
                 $uri1[] = $add;
-                $uri3[] = $arrayRequest[$n];
+                $uri3[] = $arrayRequest[$cont];
             } else {
                 $uri2[] = $add;
             }
 
-            $n++;
+            $cont++;
         }
 
         $replace = str_replace($uri1, $uri3, $array);

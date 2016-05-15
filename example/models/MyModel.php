@@ -1,9 +1,9 @@
 <?php
 
-    use GetKep\Kep\database\DB;
-    use GetKep\Kep\model\BaseModel;
+    use GetKep\Kep\Database\DB;
+    use GetKep\Kep\Model\BaseModel;
 
-    class myModel extends BaseModel
+    class MyModel extends BaseModel
     {
         public function testing($name)
         {

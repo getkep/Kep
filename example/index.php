@@ -1,12 +1,12 @@
 <?php
 
-    require_once '../kep/autoload.php';
+    require_once 'vendor/autoload.php';
 
-    use route\Route;
+    use GetKep\Kep\Routing\Route;
 
     Route::group('v1', function () {
 
-        Route::post('testing', ['uses' => 'myController@testing']);
+        Route::post('testing', ['uses' => 'MyController@testing']);
 
         Route::post('gettingstarted', function () {
             // Coding

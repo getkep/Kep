@@ -1,8 +1,8 @@
 <?php
 
-namespace GetKep\Kep\headers;
+namespace GetKep\Kep\Headers;
 
-class header
+class Header
 {
     public static function allowOrigin($domain)
     {

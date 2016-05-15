@@ -1,6 +1,6 @@
 <?php
 
-namespace GetKep\Kep\route;
+namespace GetKep\Kep\Routing;
 
 class Group
 {

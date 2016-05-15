@@ -1,8 +1,8 @@
 <?php
 
-namespace GetKep\Kep\config;
+namespace GetKep\Kep\Config;
 
-class config
+class Config
 {
     /**
      * Load configuration information.
@@ -26,12 +26,12 @@ class config
      *
      * @return array Configuration information
      */
-    private function loadConfig($Path, $Class)
+    private function loadConfig($path, $class)
     {
-        if (file_exists($Path)) {
-            require_once $Path;
-            if (class_exists($Class)) {
-                return new $Class();
+        if (file_exists($path)) {
+            require_once $path;
+            if (class_exists($class)) {
+                return new $class();
             }
 
             return;

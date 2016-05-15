@@ -1,8 +1,8 @@
 <?php
 
-namespace KepPHP\Kep\database;
+namespace KepPHP\Kep\Database;
 
-use KepPHP\Kep\config\config;
+use KepPHP\Kep\config\Config;
 
 class Connection
 {
