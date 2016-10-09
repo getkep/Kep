@@ -4,7 +4,6 @@ namespace KepPHP\Kep\Database;
 
 use MysqlConnection;
 use PdoConnection;
-use KepPHP\Kep\config\Config;
 
 class Connection
 {
