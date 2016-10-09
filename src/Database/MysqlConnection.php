@@ -31,7 +31,7 @@ class MysqlConnection
      *
      * @return MYSQLI
      */
-	public function mysql
+	public function mysql()
 	{
 		return new \mysqli($this->config['host'], $this->config['username'], $this->config['password'], $this->config['database']);
 	}
