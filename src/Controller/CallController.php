@@ -90,7 +90,7 @@ class CallController extends Config
      */
     private function checkController()
     {
-        if (!$this->controller) {
+        if (! $this->controller) {
             $this->responseJson('Controller does not exist.'.$this->controller, 404);
 
             return;
@@ -108,7 +108,7 @@ class CallController extends Config
      */
     private function checkPatchController()
     {
-        if (!file_exists($this->path)) {
+        if (! file_exists($this->path)) {
             $this->responseJson('We did not find the driver: '.$this->path.' '.$this->params, 404);
 
             return;
@@ -128,7 +128,7 @@ class CallController extends Config
     {
         require_once $this->path;
 
-        if (!class_exists($this->controller)) {
+        if (! class_exists($this->controller)) {
             $this->responseJson('We did not find the driver class', 404);
 
             return;
@@ -162,7 +162,7 @@ class CallController extends Config
      */
     private function checkActionController()
     {
-        if (!$this->action && method_exists($this->controlador, 'index')) {
+        if (! $this->action && method_exists($this->controlador, 'index')) {
             $this->controller->index($this->parameters);
 
             return;

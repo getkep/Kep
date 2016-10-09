@@ -16,7 +16,7 @@ class Auth extends DB
          */
         public function checkToken($user, $token)
         {
-            if (!isset($_SESSION)) {
+            if (! isset($_SESSION)) {
                 session_start();
             }
 
