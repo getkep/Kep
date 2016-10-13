@@ -2,7 +2,8 @@
 
 namespace KepPHP\Kep\Database;
 
-use KepPHP\Kep\config\Config;
+use MysqlConnection;
+use PdoConnection;
 
 class Connection
 {
@@ -21,45 +22,25 @@ class Connection
     private $mysql;
 
     /**
-     * Configuration.
-     *
-     * @var array
-     */
-    private $config;
-
-    /**
-     * Return connection settings.
-     *
-     * @return config
-     */
-    public function __construct()
-    {
-        $this->config = config::getConfig();
-        $this->config = $this->config['connections'];
-
-        return $this;
-    }
-
-    /**
-     * Create a new database connection instance.
+     * Call PDO connection class.
      *
      * @return PDO
      */
     public function pdo()
     {
-        $this->pdo = new PDO($this->config['driver'].':host='.$this->config['host'].';dbname='.$this->config['database'], $this->config['username'], $this->config['password']);
+        $this->pdo = PdoConnection::pdo();
 
         return $this;
     }
 
     /**
-     * Create a new database connection instance.
+     * Call MYSQLI connection class.
      *
      * @return MYSQLI
      */
     public function mysqli()
     {
-        $this->mysql = new \mysqli($this->config['host'], $this->config['username'], $this->config['password'], $this->config['database']);
+        $this->mysql = MysqlConnection::mysql();
 
         return $this->mysql;
     }
