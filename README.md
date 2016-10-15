@@ -12,10 +12,24 @@ Kep Framework foi iniciado por um desenvolvedor, com a mesma curiosidade de apre
 
 ## Instalação
 
+### Manual
+
 Instalação pelo composer, certifique-se de ter Composer instalado em sua máquina.
 ```
 	composer require getkep/kep *
 ```
+
+### Via Kep Installer
+
+Primeiro, faça o download do Kep Installer usando o Composer:
+
+	composer global require "getkep/installer"
+
+Certifique-se de colocar o diretório `$HOME/.composer/vendor/bin` (Ou o diretório que foi instalado em seu OS) no seu `$PATH` para o executável do `kep`.
+
+Quando instalado, o novo comando `kep new` irá criar uma instalação do Kep fresquinha no diretório que você especificar. Exemplo, `kep new api` vai criar um diretório chamado api, contendo uma instalação fresquinha, com todas as dependências do Kep instaladas:
+
+	kep new api 
 
 ## Documentação Oficial
 
