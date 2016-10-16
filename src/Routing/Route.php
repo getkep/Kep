@@ -1,8 +1,8 @@
 <?php
 
-namespace GetKep\Kep\Routing;
+namespace Kep\Routing;
 
-use GetKep\Kep\Routing\RouteFactory as Factory;
+use Kep\Routing\RouteFactory as Factory;
 
 class Route extends Group
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace GetKep\Kep\Database\Query;
+namespace Kep\Database\Query;
 
-use GetKep\Kep\Database\Connection;
+use Kep\Database\Connection;
 
 class Builder
 {

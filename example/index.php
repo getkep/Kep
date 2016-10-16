@@ -2,7 +2,7 @@
 
     require_once 'vendor/autoload.php';
 
-    use GetKep\Kep\Routing\Route;
+    use Kep\Routing\Route;
 
     Route::group('v1', function () {
         Route::post('testing', ['uses' => 'MyController@testing']);

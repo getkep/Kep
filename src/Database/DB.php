@@ -1,9 +1,9 @@
 <?php
 
-namespace GetKep\Kep\Database;
+namespace Kep\Database;
 
-use GetKep\Kep\Config\Config;
-use GetKep\Kep\Database\Query\Builder;
+use Kep\Config\Config;
+use Kep\Database\Query\Builder;
 
 class DB extends Config
 {

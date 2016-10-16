@@ -1,8 +1,8 @@
 <?php
 
-namespace GetKep\Kep\Controller;
+namespace Kep\Controller;
 
-use GetKep\Kep\Config\Config;
+use Kep\Config\Config;
 
 class BaseController extends Config
 {

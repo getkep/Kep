@@ -1,8 +1,8 @@
 <?php
 
-namespace KepPHP\Kep\Database;
+namespace Kep\Database;
 
-use KepPHP\Kep\config\Config;
+use Kep\config\Config;
 
 class PdoConnection
 {

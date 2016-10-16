@@ -1,6 +1,6 @@
 <?php
 
-namespace GetKep\Kep\Config;
+namespace Kep\Config;
 
 class Config
 {

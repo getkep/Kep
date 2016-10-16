@@ -1,6 +1,6 @@
 <?php
 
-namespace KepPHP\Kep\Database;
+namespace Kep\Database;
 
 use MysqlConnection;
 use PdoConnection;

@@ -1,5 +1,5 @@
 {
-    "name": "getkep/kep",
+    "name": "kep/kep",
     "type": "project",
     "description": "Kep - The Framework for API's",
     "keywords": ["kep","framework","api"],
@@ -24,7 +24,7 @@
     },
     "autoload": {
         "psr-4": {
-            "GetKep\\Kep\\": "src"
+            "Kep\\": "src"
         }
     },
     "minimum-stability": "stable"
