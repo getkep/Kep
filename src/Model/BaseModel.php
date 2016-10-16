@@ -1,8 +1,8 @@
 <?php
 
-namespace GetKep\Kep\Model;
+namespace Kep\Model;
 
-use GetKep\Kep\Database\DB;
+use Kep\Database\DB;
 
 class BaseModel extends DB
 {

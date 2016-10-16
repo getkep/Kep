@@ -1,6 +1,6 @@
 <?php
 
-namespace GetKep\Kep\Database;
+namespace Kep\Database;
 
 class Grammar
 {
